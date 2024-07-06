@@ -14,8 +14,11 @@
 		FEE9794E2C38DDDD00BD81C9 /* GameLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE9794D2C38DDDD00BD81C9 /* GameLogic.swift */; };
 		FEE979502C38F23400BD81C9 /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE9794F2C38F23400BD81C9 /* MainMenuView.swift */; };
 		FEE979522C38F8AA00BD81C9 /* FallingSymbolsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE979512C38F8AA00BD81C9 /* FallingSymbolsView.swift */; };
-		FEE979562C3912B300BD81C9 /* FireworksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE979552C3912B300BD81C9 /* FireworksView.swift */; };
-		FEE979582C39135400BD81C9 /* ClassicFireworkAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE979572C39135400BD81C9 /* ClassicFireworkAnimator.swift */; };
+		FEE9795A2C39A78100BD81C9 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE979592C39A78100BD81C9 /* SoundManager.swift */; };
+		FEE9795D2C39A88D00BD81C9 /* MainMenuTrack.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FEE9795C2C39A88D00BD81C9 /* MainMenuTrack.mp3 */; };
+		FEE979612C39B00800BD81C9 /* WinningSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FEE979602C39B00800BD81C9 /* WinningSound.mp3 */; };
+		FEE979B82C39B79C00BD81C9 /* NextPage.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FEE979B72C39B79C00BD81C9 /* NextPage.mp3 */; };
+		FEE979BA2C39BB7700BD81C9 /* MoveSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FEE979B92C39BB7700BD81C9 /* MoveSound.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,8 +30,11 @@
 		FEE9794D2C38DDDD00BD81C9 /* GameLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLogic.swift; sourceTree = "<group>"; };
 		FEE9794F2C38F23400BD81C9 /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
 		FEE979512C38F8AA00BD81C9 /* FallingSymbolsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallingSymbolsView.swift; sourceTree = "<group>"; };
-		FEE979552C3912B300BD81C9 /* FireworksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireworksView.swift; sourceTree = "<group>"; };
-		FEE979572C39135400BD81C9 /* ClassicFireworkAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassicFireworkAnimator.swift; sourceTree = "<group>"; };
+		FEE979592C39A78100BD81C9 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
+		FEE9795C2C39A88D00BD81C9 /* MainMenuTrack.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = MainMenuTrack.mp3; sourceTree = "<group>"; };
+		FEE979602C39B00800BD81C9 /* WinningSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = WinningSound.mp3; sourceTree = "<group>"; };
+		FEE979B72C39B79C00BD81C9 /* NextPage.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = NextPage.mp3; sourceTree = "<group>"; };
+		FEE979B92C39BB7700BD81C9 /* MoveSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = MoveSound.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,8 +67,8 @@
 		FEE9793E2C38DB5D00BD81C9 /* TicTacToeApp */ = {
 			isa = PBXGroup;
 			children = (
-				FEE979552C3912B300BD81C9 /* FireworksView.swift */,
-				FEE979572C39135400BD81C9 /* ClassicFireworkAnimator.swift */,
+				FEE9795B2C39A7F100BD81C9 /* Sounds */,
+				FEE979592C39A78100BD81C9 /* SoundManager.swift */,
 				FEE979512C38F8AA00BD81C9 /* FallingSymbolsView.swift */,
 				FEE9794F2C38F23400BD81C9 /* MainMenuView.swift */,
 				FEE9794D2C38DDDD00BD81C9 /* GameLogic.swift */,
@@ -80,6 +86,17 @@
 				FEE979462C38DB5F00BD81C9 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		FEE9795B2C39A7F100BD81C9 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				FEE979602C39B00800BD81C9 /* WinningSound.mp3 */,
+				FEE979B72C39B79C00BD81C9 /* NextPage.mp3 */,
+				FEE979B92C39BB7700BD81C9 /* MoveSound.mp3 */,
+				FEE9795C2C39A88D00BD81C9 /* MainMenuTrack.mp3 */,
+			);
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,6 +158,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				FEE979472C38DB5F00BD81C9 /* Preview Assets.xcassets in Resources */,
+				FEE9795D2C39A88D00BD81C9 /* MainMenuTrack.mp3 in Resources */,
+				FEE979612C39B00800BD81C9 /* WinningSound.mp3 in Resources */,
+				FEE979BA2C39BB7700BD81C9 /* MoveSound.mp3 in Resources */,
+				FEE979B82C39B79C00BD81C9 /* NextPage.mp3 in Resources */,
 				FEE979442C38DB5F00BD81C9 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -153,10 +174,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				FEE9794E2C38DDDD00BD81C9 /* GameLogic.swift in Sources */,
+				FEE9795A2C39A78100BD81C9 /* SoundManager.swift in Sources */,
 				FEE979522C38F8AA00BD81C9 /* FallingSymbolsView.swift in Sources */,
-				FEE979582C39135400BD81C9 /* ClassicFireworkAnimator.swift in Sources */,
 				FEE979422C38DB5D00BD81C9 /* ContentView.swift in Sources */,
-				FEE979562C3912B300BD81C9 /* FireworksView.swift in Sources */,
 				FEE979502C38F23400BD81C9 /* MainMenuView.swift in Sources */,
 				FEE979402C38DB5D00BD81C9 /* TicTacToeAppApp.swift in Sources */,
 			);

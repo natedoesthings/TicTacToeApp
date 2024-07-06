@@ -20,6 +20,7 @@ class TicTacModel: ObservableObject {
         }
         
         board[i] = activePlayer
+        SoundManager.shared.playSound(named: "MoveSound")
                 
         if let winCombination = checkWinner() {
             winner = activePlayer
@@ -29,7 +30,7 @@ class TicTacModel: ObservableObject {
             } else {
                 playerOScore += 1
             }
-            print("\(activePlayer) has won the game!")
+            SoundManager.shared.playSound(named: "WinningSound")
         } else {
             activePlayer = (activePlayer == .X) ? .O : .X
             if gameMode == .singlePlayer && activePlayer == .O {
@@ -46,13 +47,13 @@ class TicTacModel: ObservableObject {
     }
     
     
-    func playerScoreColor(playerXScore: Int, playerOScore: Int) -> Color {
+    func playerScoreColor(playerXScore: Int, playerOScore: Int, colorScheme: ColorScheme) -> Color {
         if playerXScore > playerOScore {
                 return .green
         } else if playerXScore < playerOScore {
                 return .red
             } else {
-                return .black
+                return colorScheme == .dark ? .white : .black
             }
         }
     

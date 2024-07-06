@@ -12,14 +12,17 @@ enum GameMode {
 struct ContentView: View {
     var gameMode: GameMode
     @ObservedObject var TicTac = TicTacModel()
+    @Environment(\.colorScheme) var colorScheme
     
     private var opponentText: String {
-            gameMode == .singlePlayer ? "Bot" : "Player 2"
+            gameMode == .singlePlayer ? "Computer" : "Player 2"
         }
     
     private var gameModeText: String {
             gameMode == .singlePlayer ? "AI?" : "FRIEND?"
         }
+    
+    @State private var showRestartButton = false
     
     
     var body: some View {
@@ -40,14 +43,14 @@ struct ContentView: View {
                                     path.move(to: CGPoint(x: 0, y: height))
                                     path.addLine(to: CGPoint(x: width, y: 0))
                                 }
-                                .stroke(Color.black, lineWidth: 10)
+                                .stroke(reverseBlack, lineWidth: 10)
                             }
                         )
                 }
                 
                 Text(gameModeText)
                     .font(.system(size: 20, weight: .heavy))
-                    .foregroundColor(.black)
+                    .foregroundColor(reverseBlack)
                     .offset(x: 140, y: -25)
                     .rotationEffect(Angle(degrees: 10))
                 
@@ -57,13 +60,13 @@ struct ContentView: View {
                         
                         Text("Player 1:").font(.system(size: 20, weight: .bold))
                         Text("\(TicTac.playerXScore)").font(.system(size: 20, weight: .bold))
-                            .foregroundColor(TicTac.playerScoreColor(playerXScore: TicTac.playerXScore,playerOScore: TicTac.playerOScore))
+                            .foregroundColor(TicTac.playerScoreColor(playerXScore: TicTac.playerXScore,playerOScore: TicTac.playerOScore, colorScheme:colorScheme))
                     }
                     Spacer()
                     HStack{
                         Text("\(opponentText): ").font(.system(size: 20, weight: .bold))
                         Text("\(TicTac.playerOScore)").font(.system(size: 20, weight: .bold))
-                            .foregroundColor(TicTac.playerScoreColor(playerXScore: TicTac.playerOScore,playerOScore: TicTac.playerXScore))
+                            .foregroundColor(TicTac.playerScoreColor(playerXScore: TicTac.playerOScore,playerOScore: TicTac.playerXScore, colorScheme:colorScheme))
                     }
                     
                     
@@ -84,42 +87,60 @@ struct ContentView: View {
                                 }
                             
                             var background: Color {
-                                TicTac.winningCombination.contains(i) ? .green : .white
+                                TicTac.winningCombination.contains(i) ? .green : reverseWhite
                                 }
                             
                             Text(TicTac.buttonLabel(i:i))
                                 .frame(width: 100, height: 100)
                                 .background(background)
-                                .foregroundColor(.black)
+                                .foregroundColor(reverseBlack)
                                 .font(.system(size: 45, weight: .heavy))
                                 .overlay(
                                     Rectangle()
-                                        .stroke(Color.black, lineWidth: 3)
+                                        .stroke(reverseBlack, lineWidth: 3)
                                 )
                         })
                     }
                 })
                 .padding(.bottom)
-                
-                Button(action: {
-                    TicTac.resetGame()
-                }, label: {
-                    Text("RESET GAME")
-                        .frame(width: 200, height: 50)
-                        .background(.black)
-                        .foregroundColor(.white)
-                        .font(.system(size: 20, weight: .heavy))
-                        .clipShape(Capsule())
-                })
+                if showRestartButton {
+                    Button(action: {
+                        withAnimation {
+                            showRestartButton = false
+                        }
+                        TicTac.resetGame()
+                    }) {
+                        Text("RESTART ↻")
+                            .frame(width: 200, height: 50)
+                            .background(reverseWhite)
+                            .foregroundColor(reverseBlack)
+                            .font(.system(size: 20, weight: .heavy))
+                            .clipShape(Capsule())
+                    }
+                    .transition(.scale(scale: 0.1, anchor: .center).combined(with: .opacity))
+                }
             }
             .padding()
-//            
-//            if !TicTic.winningCombination.isEmpty {
-//                            WinningLineView(winningCombination: TicTic.winningCombination)
-//                                .transition(.opacity)
-//                        }
+            .onAppear {
+                SoundManager.shared.playSound(named: "NextPage")
+            }
+
+        }
+        .onChange(of: TicTac.winner) { _ in
+            if TicTac.winner != nil {
+                withAnimation(.easeOut(duration: 0.5)) {
+                    showRestartButton = true
+                }
+            }
         }
     }
+    private var reverseBlack: Color {
+            colorScheme == .dark ? Color.white : Color.black
+        }
+    
+    private var reverseWhite: Color {
+            colorScheme == .dark ? Color.black : Color.white
+        }
 }
 
 #Preview {

@@ -2,7 +2,8 @@ import SwiftUI
 
 struct MainMenuView: View {
     @State private var animateButton = false
-
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -11,6 +12,7 @@ struct MainMenuView: View {
                         HStack(spacing: 0) {
                             Text("TIK-TAK-")
                                 .font(.system(size: 45, weight: .heavy))
+                                .foregroundColor(reverseBlack)
                             Text("TOE")
                                 .font(.system(size: 45, weight: .heavy))
                                 .overlay(
@@ -21,15 +23,16 @@ struct MainMenuView: View {
                                             path.move(to: CGPoint(x: 0, y: height))
                                             path.addLine(to: CGPoint(x: width, y: 0))
                                         }
-                                        .stroke(Color.black, lineWidth: 10)
+                                        .stroke(reverseBlack, lineWidth: 10)
                                     }
                                 )
+                                .foregroundColor(reverseBlack)
                         }
                         .padding(.bottom, 10)
                         
                         Text("AI?")
                             .font(.system(size: 30, weight: .heavy))
-                            .foregroundColor(.black)
+                            .foregroundColor(reverseBlack)
                             .offset(x: 150, y: 15)
                             .rotationEffect(Angle(degrees: 10)) // Adjust position as needed
                     }
@@ -38,8 +41,8 @@ struct MainMenuView: View {
                     NavigationLink(destination: ContentView(gameMode: .twoPlayer)) {
                         Text("PLAY vs. FRIEND")
                             .frame(width: animateButton ? 220 : 200, height: animateButton ? 55 : 50)
-                            .background(.black)
-                            .foregroundColor(.white)
+                            .background(reverseBlack)
+                            .foregroundColor(reverseWhite)
                             .font(.system(size: 20, weight: .heavy))
                             .clipShape(Capsule())
                     }
@@ -48,8 +51,8 @@ struct MainMenuView: View {
                     NavigationLink(destination: ContentView(gameMode: .singlePlayer)) {
                         Text("PLAY vs. BOT")
                             .frame(width: animateButton ? 220 : 200, height: animateButton ? 55 : 50)
-                            .background(.black)
-                            .foregroundColor(.white)
+                            .background(reverseBlack)
+                            .foregroundColor(reverseWhite)
                             .font(.system(size: 20, weight: .heavy))
                             .clipShape(Capsule())
                     }
@@ -59,10 +62,23 @@ struct MainMenuView: View {
                     withAnimation(Animation.easeInOut(duration: 1).repeatForever(autoreverses: true)) {
                         animateButton = true
                     }
+                    SoundManager.shared.playSound(named: "MainMenuTrack", loop: true)
+                }
+                .onDisappear {
+                    SoundManager.shared.stopSound()
                 }
             }
         }
     }
+    
+    private var reverseBlack: Color {
+            colorScheme == .dark ? Color.white : Color.black
+        }
+    
+    private var reverseWhite: Color {
+            colorScheme == .dark ? Color.black : Color.white
+        }
+    
 }
 
 #Preview {
