@@ -11,22 +11,61 @@ enum GameMode {
 
 struct ContentView: View {
     var gameMode: GameMode
-    @ObservedObject var TicTic = TicTacModel()
+    @ObservedObject var TicTac = TicTacModel()
     
     private var opponentText: String {
             gameMode == .singlePlayer ? "Bot" : "Player 2"
         }
     
+    private var gameModeText: String {
+            gameMode == .singlePlayer ? "AI?" : "FRIEND?"
+        }
+    
+    
     var body: some View {
         
         ZStack {
             VStack {
-                Text("TIC TAC TOE").font(.system(size: 45, weight: .heavy))
+                
+                HStack(spacing: 0) {
+                    Text("TIK-TAK-")
+                        .font(.system(size: 45, weight: .heavy))
+                    Text("TOE")
+                        .font(.system(size: 45, weight: .heavy))
+                        .overlay(
+                            GeometryReader { geometry in
+                                Path { path in
+                                    let width = geometry.size.width
+                                    let height = geometry.size.height
+                                    path.move(to: CGPoint(x: 0, y: height))
+                                    path.addLine(to: CGPoint(x: width, y: 0))
+                                }
+                                .stroke(Color.black, lineWidth: 10)
+                            }
+                        )
+                }
+                
+                Text(gameModeText)
+                    .font(.system(size: 20, weight: .heavy))
+                    .foregroundColor(.black)
+                    .offset(x: 140, y: -25)
+                    .rotationEffect(Angle(degrees: 10))
+                
                 
                 HStack {
-                    Text("Player 1: \(TicTic.playerXScore)").font(.system(size: 20, weight: .bold))
+                    HStack{
+                        
+                        Text("Player 1:").font(.system(size: 20, weight: .bold))
+                        Text("\(TicTac.playerXScore)").font(.system(size: 20, weight: .bold))
+                            .foregroundColor(TicTac.playerScoreColor(playerXScore: TicTac.playerXScore,playerOScore: TicTac.playerOScore))
+                    }
                     Spacer()
-                    Text("\(opponentText): \(TicTic.playerOScore)").font(.system(size: 20, weight: .bold))
+                    HStack{
+                        Text("\(opponentText): ").font(.system(size: 20, weight: .bold))
+                        Text("\(TicTac.playerOScore)").font(.system(size: 20, weight: .bold))
+                            .foregroundColor(TicTac.playerScoreColor(playerXScore: TicTac.playerOScore,playerOScore: TicTac.playerXScore))
+                    }
+                    
                     
                     
                 }
@@ -37,18 +76,18 @@ struct ContentView: View {
                 LazyVGrid(columns: col, content: {
                     ForEach(0..<9) { i in
                         Button(action: {
-                            TicTic.buttonTap(i: i, gameMode: gameMode)
+                            TicTac.buttonTap(i: i, gameMode: gameMode)
                             
                         }, label: {
                             var textColor: Color {
-                                TicTic.buttonLabel(i:i) == "X" ? .black : .white
+                                TicTac.buttonLabel(i:i) == "X" ? .black : .white
                                 }
                             
                             var background: Color {
-                                TicTic.winningCombination.contains(i) ? .green : .white
+                                TicTac.winningCombination.contains(i) ? .green : .white
                                 }
                             
-                            Text(TicTic.buttonLabel(i:i))
+                            Text(TicTac.buttonLabel(i:i))
                                 .frame(width: 100, height: 100)
                                 .background(background)
                                 .foregroundColor(.black)
@@ -63,7 +102,7 @@ struct ContentView: View {
                 .padding(.bottom)
                 
                 Button(action: {
-                    TicTic.resetGame()
+                    TicTac.resetGame()
                 }, label: {
                     Text("RESET GAME")
                         .frame(width: 200, height: 50)
@@ -84,5 +123,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(gameMode: .twoPlayer)
+    ContentView(gameMode: .singlePlayer)
 }

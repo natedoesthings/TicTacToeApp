@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 
 enum Player {
     case X
@@ -43,6 +44,20 @@ class TicTacModel: ObservableObject {
         }
         return ""
     }
+    
+    
+    func playerScoreColor(playerXScore: Int, playerOScore: Int) -> Color {
+        if playerXScore > playerOScore {
+                return .green
+        } else if playerXScore < playerOScore {
+                return .red
+            } else {
+                return .black
+            }
+        }
+    
+    
+    
     
     func resetGame() {
         board = Array(repeating: nil, count: 9)
