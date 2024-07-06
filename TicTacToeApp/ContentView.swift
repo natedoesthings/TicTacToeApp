@@ -11,6 +11,10 @@ struct ContentView: View {
     var gameMode: GameMode
     @ObservedObject var TicTic = TicTacModel()
     
+    private var opponentText: String {
+            gameMode == .singlePlayer ? "Bot" : "Player 2"
+        }
+    
     var body: some View {
         VStack {
             Text("TIC TAC TOE").font(.system(size: 45, weight: .heavy))
@@ -18,15 +22,7 @@ struct ContentView: View {
             HStack {
                 Text("Player 1: \(TicTic.playerXScore)").font(.system(size: 20, weight: .bold))
                 Spacer()
-                var text:String = ""
-                if gameMode == .singlePlayer {
-                    text = "Bot"
-                }
-                else {
-                    text = "Player 2"
-                }
-                
-                Text("\(text): \(TicTic.playerOScore)").font(.system(size: 20, weight: .bold))
+                Text("\(opponentText): \(TicTic.playerOScore)").font(.system(size: 20, weight: .bold))
 
                 
             }
