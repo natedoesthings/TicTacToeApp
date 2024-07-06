@@ -31,3 +31,11 @@ Play against your friends 🙋🏽‍♂️ or against the computer!! 🖥️
 # Current App-Icon:
 
 ![app-icon](https://github.com/natedoesthings/TicTacToeApp/assets/123054755/dc9889f3-4543-4180-86d3-1a1993cb13be)
+
+
+# Demo!
+
+
+![ScreenRecording2024-07-06at3 41 08PM-ezgif com-video-to-gif-converter](https://github.com/natedoesthings/TicTacToeApp/assets/123054755/4764c123-bd00-406a-8ad1-5ea24ff2a5c9)
+
+
