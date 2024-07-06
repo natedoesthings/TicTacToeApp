@@ -36,6 +36,18 @@ Play against your friends 🙋🏽‍♂️ or against the computer!! 🖥️
 # Demo!
 
 
-![ScreenRecording2024-07-06at3 41 08PM-ezgif com-video-to-gif-converter](https://github.com/natedoesthings/TicTacToeApp/assets/123054755/4764c123-bd00-406a-8ad1-5ea24ff2a5c9)
-
+<table>
+  <tr>
+    <td><img src="https://github.com/natedoesthings/TicTacToeApp/assets/123054755/4764c123-bd00-406a-8ad1-5ea24ff2a5c9" width="300" height="600"></td>
+    <td>
+      <h1>Player V. Computer</h1>
+      <ul>
+        <li>This is a demo of the TicTacToe app.</li>
+    <li>Play a classic TicTacToe game with another player or against the bot.</li>
+    <li>Features a sleek UI, smooth animations, and sound effects.</li>
+    <li>Engaging and fun experience for players.</li>
+      </ul>
+    </td>
+  </tr>
+</table>
 
