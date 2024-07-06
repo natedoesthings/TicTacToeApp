@@ -19,6 +19,7 @@
 		FEE979612C39B00800BD81C9 /* WinningSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FEE979602C39B00800BD81C9 /* WinningSound.mp3 */; };
 		FEE979B82C39B79C00BD81C9 /* NextPage.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FEE979B72C39B79C00BD81C9 /* NextPage.mp3 */; };
 		FEE979BA2C39BB7700BD81C9 /* MoveSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FEE979B92C39BB7700BD81C9 /* MoveSound.mp3 */; };
+		FEE979BC2C39E2AB00BD81C9 /* LoosingSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FEE979BB2C39E2AB00BD81C9 /* LoosingSound.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		FEE979602C39B00800BD81C9 /* WinningSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = WinningSound.mp3; sourceTree = "<group>"; };
 		FEE979B72C39B79C00BD81C9 /* NextPage.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = NextPage.mp3; sourceTree = "<group>"; };
 		FEE979B92C39BB7700BD81C9 /* MoveSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = MoveSound.mp3; sourceTree = "<group>"; };
+		FEE979BB2C39E2AB00BD81C9 /* LoosingSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = LoosingSound.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 		FEE9795B2C39A7F100BD81C9 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				FEE979BB2C39E2AB00BD81C9 /* LoosingSound.mp3 */,
 				FEE979602C39B00800BD81C9 /* WinningSound.mp3 */,
 				FEE979B72C39B79C00BD81C9 /* NextPage.mp3 */,
 				FEE979B92C39BB7700BD81C9 /* MoveSound.mp3 */,
@@ -158,6 +161,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FEE979472C38DB5F00BD81C9 /* Preview Assets.xcassets in Resources */,
+				FEE979BC2C39E2AB00BD81C9 /* LoosingSound.mp3 in Resources */,
 				FEE9795D2C39A88D00BD81C9 /* MainMenuTrack.mp3 in Resources */,
 				FEE979612C39B00800BD81C9 /* WinningSound.mp3 in Resources */,
 				FEE979BA2C39BB7700BD81C9 /* MoveSound.mp3 in Resources */,

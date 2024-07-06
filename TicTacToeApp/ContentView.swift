@@ -85,14 +85,11 @@ struct ContentView: View {
                             var textColor: Color {
                                 TicTac.buttonLabel(i:i) == "X" ? .black : .white
                                 }
-                            
-                            var background: Color {
-                                TicTac.winningCombination.contains(i) ? .green : reverseWhite
-                                }
+                        
                             
                             Text(TicTac.buttonLabel(i:i))
                                 .frame(width: 100, height: 100)
-                                .background(background)
+                                .background(tieBreaker(i:i))
                                 .foregroundColor(reverseBlack)
                                 .font(.system(size: 45, weight: .heavy))
                                 .overlay(
@@ -126,7 +123,7 @@ struct ContentView: View {
             }
 
         }
-        .onChange(of: TicTac.winner) { _ in
+        .onChange(of: TicTac.winner) {
             if TicTac.winner != nil {
                 withAnimation(.easeOut(duration: 0.5)) {
                     showRestartButton = true
@@ -141,8 +138,17 @@ struct ContentView: View {
     private var reverseWhite: Color {
             colorScheme == .dark ? Color.black : Color.white
         }
+    
+    private func tieBreaker(i: Int) -> Color {
+        if TicTac.winner != .T {
+            return TicTac.winningCombination.contains(i) ? .green : reverseWhite
+        }
+        else {
+            return .red
+        }
+    }
 }
 
 #Preview {
-    ContentView(gameMode: .singlePlayer)
+    ContentView(gameMode: .twoPlayer)
 }

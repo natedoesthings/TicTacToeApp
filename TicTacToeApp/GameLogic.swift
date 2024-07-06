@@ -4,6 +4,7 @@ import SwiftUI
 enum Player {
     case X
     case O
+    case T
 }
 
 class TicTacModel: ObservableObject {
@@ -13,6 +14,7 @@ class TicTacModel: ObservableObject {
     @Published var playerXScore: Int = 0
     @Published var playerOScore: Int = 0
     @Published var winningCombination: [Int] = []
+    @Published var counter: Int = 0
     
     func buttonTap(i: Int, gameMode: GameMode) {
         guard board[i] == nil && winner == nil else {
@@ -21,7 +23,7 @@ class TicTacModel: ObservableObject {
         
         board[i] = activePlayer
         SoundManager.shared.playSound(named: "MoveSound")
-                
+        
         if let winCombination = checkWinner() {
             winner = activePlayer
             winningCombination = winCombination
@@ -31,11 +33,26 @@ class TicTacModel: ObservableObject {
                 playerOScore += 1
             }
             SoundManager.shared.playSound(named: "WinningSound")
-        } else {
+        } else if counter <= 7{
+            
             activePlayer = (activePlayer == .X) ? .O : .X
             if gameMode == .singlePlayer && activePlayer == .O {
                 botMove()
             }
+            counter += 1
+            
+        }
+        else {
+            // Set winner to Tie
+            winner = .T
+            // Play loosing sound
+            SoundManager.shared.playSound(named: "LoosingSound")
+            
+            
+            
+
+            
+                
         }
     }
     
@@ -64,6 +81,7 @@ class TicTacModel: ObservableObject {
         board = Array(repeating: nil, count: 9)
         activePlayer = .X
         winner = nil
+        counter = 0
         winningCombination = []
     }
     
