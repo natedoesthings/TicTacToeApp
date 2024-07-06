@@ -6,32 +6,30 @@ enum Player {
 }
 
 class TicTacModel: ObservableObject {
-    
-    @Published var board:[Player?] = Array(repeating: nil, count: 9)
-    @Published var activePlayer:Player = .X
-    @Published var winner:Player? = nil
+    @Published var board: [Player?] = Array(repeating: nil, count: 9)
+    @Published var activePlayer: Player = .X
+    @Published var winner: Player? = nil
     @Published var playerXScore: Int = 0
     @Published var playerOScore: Int = 0
+    @Published var winningCombination: [Int] = []
     
-    //Button Pressed
-    func buttonTap(i:Int, gameMode: GameMode) {
-        
+    func buttonTap(i: Int, gameMode: GameMode) {
         guard board[i] == nil && winner == nil else {
             return
         }
         
         board[i] = activePlayer
                 
-        if checkWinner() {
+        if let winCombination = checkWinner() {
             winner = activePlayer
+            winningCombination = winCombination
             if activePlayer == .X {
                 playerXScore += 1
             } else {
                 playerOScore += 1
             }
             print("\(activePlayer) has won the game!")
-        }
-        else {
+        } else {
             activePlayer = (activePlayer == .X) ? .O : .X
             if gameMode == .singlePlayer && activePlayer == .O {
                 botMove()
@@ -39,51 +37,36 @@ class TicTacModel: ObservableObject {
         }
     }
     
-    //Label of button, return label
-    func buttonLabel(i:Int) -> String {
+    func buttonLabel(i: Int) -> String {
         if let player = board[i] {
             return player == .X ? "X" : "O"
         }
         return ""
     }
     
-    //Reset Game
     func resetGame() {
         board = Array(repeating: nil, count: 9)
         activePlayer = .X
         winner = nil
+        winningCombination = []
     }
     
-    //Check for winner
-    func checkWinner() -> Bool {
+    func checkWinner() -> [Int]? {
+        let winPatterns: [[Int]] = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+            [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+            [0, 4, 8], [2, 4, 6]             // Diagonals
+        ]
         
-        // check the rows
-        for i in stride(from: 0, to: 9, by: 3) {
-            if board[i] == activePlayer && board[i + 1] == activePlayer && board[i + 2] == activePlayer {
-                return true
+        for pattern in winPatterns {
+            if board[pattern[0]] == activePlayer && board[pattern[1]] == activePlayer && board[pattern[2]] == activePlayer {
+                return pattern
             }
         }
         
-        // check the columns
-        for i in 0..<3{
-            if board[i] == activePlayer && board[i + 3] == activePlayer && board[i + 6] == activePlayer {
-                return true
-            }
-        }
-        
-        // Diagonals
-        if board[0] == activePlayer && board[4] == activePlayer && board[8] == activePlayer {
-            return true
-        }
-        
-        if board[2] == activePlayer && board[4] == activePlayer && board[6] == activePlayer {
-            return true
-        }
-        
-        return false
+        return nil
     }
     
-    // Bot's move
     func botMove() {
         var availableMoves = [Int]()
         for i in 0..<board.count {
