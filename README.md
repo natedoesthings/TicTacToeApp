@@ -30,4 +30,4 @@ Play against your friends 🙋🏽‍♂️ or against the computer!! 🖥️
  
 # Current App-Icon:
 
-<img width="300" alt="Screenshot 2024-07-06 at 2 27 36 PM" src="https://github.com/natedoesthings/TicTacToeApp/assets/123054755/6d45099c-9696-4878-9e7d-20c64b923e7d"> 
+![app-icon](https://github.com/natedoesthings/TicTacToeApp/assets/123054755/dc9889f3-4543-4180-86d3-1a1993cb13be)
