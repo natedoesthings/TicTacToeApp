@@ -1,4 +1,4 @@
-# TIK-TAK-AI?
+# TIK-TAK-AI? (Development Phase)
 
 Play against your friends 🙋🏽‍♂️ or against the computer!! 🖥️
 
@@ -27,3 +27,7 @@ Play against your friends 🙋🏽‍♂️ or against the computer!! 🖥️
   - Page Transition
   - Player Moving Effects
   - Winner Notification!
+ 
+# Current App-Icon:
+
+<img width="300" alt="Screenshot 2024-07-06 at 2 27 36 PM" src="https://github.com/natedoesthings/TicTacToeApp/assets/123054755/6d45099c-9696-4878-9e7d-20c64b923e7d"> 
