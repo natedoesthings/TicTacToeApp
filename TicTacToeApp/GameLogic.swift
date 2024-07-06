@@ -14,7 +14,7 @@ class TicTacModel: ObservableObject {
     @Published var playerOScore: Int = 0
     
     //Button Pressed
-    func buttonTap(i:Int) {
+    func buttonTap(i:Int, gameMode: GameMode) {
         
         guard board[i] == nil && winner == nil else {
             return
@@ -33,7 +33,7 @@ class TicTacModel: ObservableObject {
         }
         else {
             activePlayer = (activePlayer == .X) ? .O : .X
-            if activePlayer == .O {
+            if gameMode == .singlePlayer && activePlayer == .O {
                 botMove()
             }
         }
@@ -94,7 +94,7 @@ class TicTacModel: ObservableObject {
         
         if let move = availableMoves.randomElement() {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.buttonTap(i: move)
+                self.buttonTap(i: move, gameMode: .singlePlayer)
             }
         }
     }

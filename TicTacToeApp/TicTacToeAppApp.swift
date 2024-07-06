@@ -11,7 +11,7 @@ import SwiftUI
 struct TicTacToeAppApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(gameMode: .singlePlayer)
         }
     }
 }

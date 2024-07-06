@@ -1,7 +1,14 @@
 import SwiftUI
 
+
+enum GameMode {
+    case singlePlayer
+    case twoPlayer
+}
+
+
 struct ContentView: View {
-    
+    var gameMode: GameMode
     @ObservedObject var TicTic = TicTacModel()
     
     var body: some View {
@@ -9,9 +16,19 @@ struct ContentView: View {
             Text("TIC TAC TOE").font(.system(size: 45, weight: .heavy))
             
             HStack {
-                Text("Player X: \(TicTic.playerXScore)").font(.system(size: 20, weight: .bold))
+                Text("Player 1: \(TicTic.playerXScore)").font(.system(size: 20, weight: .bold))
                 Spacer()
-                Text("Bot: \(TicTic.playerOScore)").font(.system(size: 20, weight: .bold))
+                var text:String = ""
+                if gameMode == .singlePlayer {
+                    text = "Bot"
+                }
+                else {
+                    text = "Player 2"
+                }
+                
+                Text("\(text): \(TicTic.playerOScore)").font(.system(size: 20, weight: .bold))
+
+                
             }
             .padding()
             
@@ -20,7 +37,7 @@ struct ContentView: View {
             LazyVGrid(columns: col, content: {
                 ForEach(0..<9) { i in
                     Button(action: {
-                        TicTic.buttonTap(i:i)
+                        TicTic.buttonTap(i: i, gameMode: gameMode)
                         
                     }, label: {
                         Text(TicTic.buttonLabel(i:i))
@@ -53,5 +70,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ContentView(gameMode: .singlePlayer)
 }

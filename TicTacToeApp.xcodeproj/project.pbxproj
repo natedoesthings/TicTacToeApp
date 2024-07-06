@@ -12,6 +12,7 @@
 		FEE979442C38DB5F00BD81C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FEE979432C38DB5F00BD81C9 /* Assets.xcassets */; };
 		FEE979472C38DB5F00BD81C9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FEE979462C38DB5F00BD81C9 /* Preview Assets.xcassets */; };
 		FEE9794E2C38DDDD00BD81C9 /* GameLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE9794D2C38DDDD00BD81C9 /* GameLogic.swift */; };
+		FEE979502C38F23400BD81C9 /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE9794F2C38F23400BD81C9 /* MainMenuView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		FEE979432C38DB5F00BD81C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FEE979462C38DB5F00BD81C9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		FEE9794D2C38DDDD00BD81C9 /* GameLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLogic.swift; sourceTree = "<group>"; };
+		FEE9794F2C38F23400BD81C9 /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +55,7 @@
 		FEE9793E2C38DB5D00BD81C9 /* TicTacToeApp */ = {
 			isa = PBXGroup;
 			children = (
+				FEE9794F2C38F23400BD81C9 /* MainMenuView.swift */,
 				FEE9794D2C38DDDD00BD81C9 /* GameLogic.swift */,
 				FEE9793F2C38DB5D00BD81C9 /* TicTacToeAppApp.swift */,
 				FEE979412C38DB5D00BD81C9 /* ContentView.swift */,
@@ -142,6 +145,7 @@
 			files = (
 				FEE9794E2C38DDDD00BD81C9 /* GameLogic.swift in Sources */,
 				FEE979422C38DB5D00BD81C9 /* ContentView.swift in Sources */,
+				FEE979502C38F23400BD81C9 /* MainMenuView.swift in Sources */,
 				FEE979402C38DB5D00BD81C9 /* TicTacToeAppApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
