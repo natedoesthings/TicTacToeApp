@@ -1,4 +1,4 @@
-# TIK-TAK-AI? (Development Phase)
+# TIK-TAK-AI? (Production Phase)
 
 Play against your friends 🙋🏽‍♂️ or against the computer!! 🖥️
 
