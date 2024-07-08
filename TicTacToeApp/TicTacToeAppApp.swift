@@ -12,6 +12,7 @@ struct TicTacToeAppApp: App {
     var body: some Scene {
         WindowGroup {
             MainMenuView()
+//            ContentView(gameMode: .singlePlayer, Difficulty: .easy)
         }
     }
 }

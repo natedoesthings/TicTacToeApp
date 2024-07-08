@@ -38,7 +38,7 @@ struct MainMenuView: View {
                     }
                     .padding(.bottom, 50)
                     
-                    NavigationLink(destination: ContentView(gameMode: .twoPlayer)) {
+                    NavigationLink(destination: ContentView(gameMode: .twoPlayer, Difficulty: .easy)) {
                         Text("PLAY vs. FRIEND")
                             .frame(width: animateButton ? 220 : 200, height: animateButton ? 55 : 50)
                             .background(reverseBlack)
@@ -48,7 +48,7 @@ struct MainMenuView: View {
                     }
                     .padding(.bottom, 20)
                     
-                    NavigationLink(destination: ContentView(gameMode: .singlePlayer)) {
+                    NavigationLink(destination: GameModeSelection()) {
                         Text("PLAY vs. BOT")
                             .frame(width: animateButton ? 220 : 200, height: animateButton ? 55 : 50)
                             .background(reverseBlack)

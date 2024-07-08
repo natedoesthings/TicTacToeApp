@@ -6,12 +6,19 @@ enum GameMode {
     case twoPlayer
 }
 
+enum Difficulty {
+    case easy
+    case hard
+}
+
 
 
 
 struct ContentView: View {
     var gameMode: GameMode
+    var Difficulty: Difficulty
     @ObservedObject var TicTac = TicTacModel()
+    
     @Environment(\.colorScheme) var colorScheme
     
     private var opponentText: String {
@@ -79,14 +86,9 @@ struct ContentView: View {
                 LazyVGrid(columns: col, content: {
                     ForEach(0..<9) { i in
                         Button(action: {
-                            TicTac.buttonTap(i: i, gameMode: gameMode)
+                            TicTac.buttonTap(i: i, gameMode: gameMode, Difficulty: Difficulty)
                             
                         }, label: {
-                            var textColor: Color {
-                                TicTac.buttonLabel(i:i) == "X" ? .black : .white
-                                }
-                        
-                            
                             Text(TicTac.buttonLabel(i:i))
                                 .frame(width: 100, height: 100)
                                 .background(tieBreaker(i:i))
@@ -119,6 +121,7 @@ struct ContentView: View {
             }
             .padding()
             .onAppear {
+                
                 SoundManager.shared.playSound(named: "NextPage")
             }
 
@@ -150,5 +153,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(gameMode: .twoPlayer)
+    ContentView(gameMode: .singlePlayer, Difficulty: .easy)
 }
