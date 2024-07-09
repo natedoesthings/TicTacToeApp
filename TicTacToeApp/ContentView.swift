@@ -8,7 +8,9 @@ enum GameMode {
 
 enum Difficulty {
     case easy
+    case medium
     case hard
+    
 }
 
 
@@ -127,7 +129,7 @@ struct ContentView: View {
 
         }
         .onChange(of: TicTac.winner) {
-            if TicTac.winner != nil {
+            if TicTac.winner != nil && !TicTac.board.isEmpty {
                 withAnimation(.easeOut(duration: 0.5)) {
                     showRestartButton = true
                 }
@@ -153,5 +155,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(gameMode: .singlePlayer, Difficulty: .easy)
+    ContentView(gameMode: .singlePlayer, Difficulty: .medium)
 }

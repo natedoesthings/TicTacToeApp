@@ -31,7 +31,7 @@ class TicTacModel: ObservableObject {
     
     func buttonLabel(i: Int) -> String {
         if let player = board[i] {
-            return player == .X ? "X" : "O"
+            return player == .X ? "❌" : "⭕"
         }
         return ""
     }
@@ -64,10 +64,13 @@ class TicTacModel: ObservableObject {
                 if Difficulty == .easy {
                     easyBotMove()
                 }
+                else if Difficulty == .medium {
+                    mediumBotMove()
+//                    let move = counter != 0 ? aiMove() : botFirstMove()
+//                    readBoard(move: move)
+                }
                 else {
-                    modelMove()
-                    let move = counter != 0 ? aiMove() : botFirstMove()
-                    readBoard(move: move)
+                    hardBotMove()
                 }
                
                 
@@ -138,22 +141,12 @@ class TicTacModel: ObservableObject {
         }
     }
     
-    func botFirstMove() -> Int {
-        
-        let move = board[4] != .X ? 4 : 8
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.buttonTap(i: move, gameMode: .singlePlayer, Difficulty: .hard)
-        }
-        return move
-    }
     
-    
-    func modelMove(){
+    func mediumBotMove(){
         // Load the model
-        let model = try! TicTacToeAutomatic(configuration: MLModelConfiguration())
+        let model = try! TicTacToeAI_MedBot(configuration: MLModelConfiguration())
         
-        let input = TicTacToeAutomaticInput(state_1: board[0]?.stringValue ?? "", state_2: board[1]?.stringValue ?? "", state_3: board[2]?.stringValue ?? "", state_4: board[3]?.stringValue ?? "", state_5: board[4]?.stringValue ?? "", state_6: board[5]?.stringValue ?? "", state_7: board[6]?.stringValue ?? "", state_8: board[7]?.stringValue ?? "", state_9: board[8]?.stringValue ?? "")
+        let input = TicTacToeAI_MedBotInput(state_1: board[0]?.stringValue ?? "", state_2: board[1]?.stringValue ?? "", state_3: board[2]?.stringValue ?? "", state_4: board[3]?.stringValue ?? "", state_5: board[4]?.stringValue ?? "", state_6: board[5]?.stringValue ?? "", state_7: board[6]?.stringValue ?? "", state_8: board[7]?.stringValue ?? "", state_9: board[8]?.stringValue ?? "")
             
         
         // Make prediction
@@ -161,105 +154,38 @@ class TicTacModel: ObservableObject {
             let prediction = try model.prediction(input: input)
             let optimalMove = prediction.label
             print("Optimal move is at index: \(optimalMove)")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.buttonTap(i: Int(optimalMove), gameMode: .singlePlayer, Difficulty: .medium)
+            }
         } catch {
             print("Prediction failed with error: \(error)")
             print("Input data was: \(input)")
+            easyBotMove()
 
         }
     }
     
-    func aiMove() -> Int {
-        guard activePlayer == .O else { return -1}
+    func hardBotMove() {
+        // Load the model
+        let model = try! TicTacToeAI_HardBot(configuration: MLModelConfiguration())
         
-        let move = bestMove()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.buttonTap(i: move, gameMode: .singlePlayer, Difficulty: .hard)
-        }
-        
-        return move
-    }
-    
-    
-   
-    /**
-     Minimax Algorithm
-     https://www.youtube.com/watch?v=l-hh51ncgDI&ab_channel=SebastianLague
-     */
-    func minimax(board: [Player?], depth: Int, isMaximizing: Bool) -> Int {
-            // Evaluate the board
-            if let result = checkWin(board: board) {
-                    switch result {
-                    case .X:
-                        return depth - 10
-                    case .O:
-                        return 10 - depth
-                    case .T:
-                        return 0
-                    }
-                }
+        let input = TicTacToeAI_HardBotInput(state_1: board[0]?.stringValue ?? "", state_2: board[1]?.stringValue ?? "", state_3: board[2]?.stringValue ?? "", state_4: board[3]?.stringValue ?? "", state_5: board[4]?.stringValue ?? "", state_6: board[5]?.stringValue ?? "", state_7: board[6]?.stringValue ?? "", state_8: board[7]?.stringValue ?? "", state_9: board[8]?.stringValue ?? "")
             
-            // Get all available moves
-            let availableMoves = board.enumerated().compactMap { $0.element == nil ? $0.offset : nil }
-            
-            if isMaximizing {
-                var maxEval = Int.min
-                for move in availableMoves {
-                    var newBoard = board
-                    newBoard[move] = .X
-                    let eval = minimax(board: newBoard, depth: depth + 1, isMaximizing: false)
-                    maxEval = max(maxEval, eval)
-                }
-                return maxEval
-            } else {
-                var minEval = Int.max
-                for move in availableMoves {
-                    var newBoard = board
-                    newBoard[move] = .O
-                    let eval = minimax(board: newBoard, depth: depth + 1, isMaximizing: true)
-                    minEval = min(minEval, eval)
-                }
-                return minEval
-            }
-        }
-    
-    /**
-     Returns the player that won the game
-     */
-    func checkWin(board: [Player?]) -> Player? {
-        let winPatterns: [[Int]] = [
-            [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
-            [0, 3, 6], [1, 4, 7], [2, 5, 8],  // Columns
-            [0, 4, 8], [2, 4, 6]             // Diagonals
-        ]
         
-        for pattern in winPatterns {
-            if let player = board[pattern[0]], board[pattern[1]] == player, board[pattern[2]] == player {
-                return player
+        // Make prediction
+        do {
+            let prediction = try model.prediction(input: input)
+            let optimalMove = prediction.label
+            print("Optimal move is at index: \(optimalMove)")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.buttonTap(i: Int(optimalMove), gameMode: .singlePlayer, Difficulty: .hard)
             }
+        } catch {
+            print("Prediction failed with error: \(error)")
+            print("Input data was: \(input)")
+            easyBotMove()
+
         }
-        
-        return board.contains(nil) ? nil : .T
-    }
-    
-    /**
-     Calculates the most optimal move using the minimax algorithm
-     */
-    func bestMove() -> Int {
-        var bestMove = -1
-        var bestValue = Int.min
-        for i in 0..<board.count {
-            if board[i] == nil {
-                var newBoard = board
-                newBoard[i] = .O
-                let moveValue = minimax(board: newBoard, depth: 2, isMaximizing: true)
-                if moveValue > bestValue {
-                    bestValue = moveValue
-                    bestMove = i
-                }
-            }
-        }
-        return bestMove
     }
     
     

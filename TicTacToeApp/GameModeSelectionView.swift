@@ -27,6 +27,16 @@ struct GameModeSelection: View {
                 }
                 .padding(.bottom, 20)
                 
+                NavigationLink(destination: ContentView(gameMode: .singlePlayer, Difficulty: .medium).navigationBarBackButtonHidden(true)) {
+                    Text("MEDIUM AI?!")
+                        .frame(width: animateButton ? 220 : 200, height: animateButton ? 55 : 50)
+                        .background(reverseBlack)
+                        .foregroundColor(reverseWhite)
+                        .font(.system(size: 20, weight: .heavy))
+                        .clipShape(Capsule())
+                }
+                .padding(.bottom, 20)
+                
                 NavigationLink(destination: ContentView(gameMode: .singlePlayer, Difficulty: .hard).navigationBarBackButtonHidden(true)) {
                     Text("HARDCORE AI?!")
                         .frame(width: animateButton ? 220 : 200, height: animateButton ? 55 : 50)
