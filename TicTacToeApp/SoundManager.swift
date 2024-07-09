@@ -1,28 +1,119 @@
 import AVFoundation
+import Combine
 
-class SoundManager {
+enum VolumeType {
+    case main
+    case music
+    case effects
+}
+
+class SoundManager: ObservableObject {
     static let shared = SoundManager()
     
-    private var audioPlayer: AVAudioPlayer?
+    private var mainAudioPlayer: AVAudioPlayer?
+    private var musicAudioPlayer: AVAudioPlayer?
+    private var effectsAudioPlayer: AVAudioPlayer?
+    private var cancellables = Set<AnyCancellable>()
     
-    func playSound(named soundName: String, withExtension ext: String = "mp3", loop: Bool = false) {
+    @Published var mainVolume: Double = 0.5 {
+        didSet {
+            updateVolume(for: .main)
+        }
+    }
+    @Published var musicVolume: Double = 0.5 {
+        didSet {
+            updateVolume(for: .music)
+        }
+    }
+    @Published var effectsVolume: Double = 0.5 {
+        didSet {
+            updateVolume(for: .effects)
+        }
+    }
+
+    private init() {
+        // Subscribe to changes in volume properties
+        $mainVolume
+            .sink { [weak self] _ in
+                self?.updateVolume(for: .effects)
+                self?.updateVolume(for: .music)
+            }
+            .store(in: &cancellables)
+        
+        $musicVolume
+            .sink { [weak self] _ in
+                self?.updateVolume(for: .music)
+            }
+            .store(in: &cancellables)
+        
+        $effectsVolume
+            .sink { [weak self] _ in
+                self?.updateVolume(for: .effects)
+            }
+            .store(in: &cancellables)
+    }
+    
+    func playSound(named soundName: String, withExtension ext: String = "mp3", loop: Bool = false, volumeType: VolumeType) {
         guard let url = Bundle.main.url(forResource: soundName, withExtension: ext) else {
             print("Sound file not found: \(soundName).\(ext)")
             return
         }
         
         do {
-            audioPlayer = try AVAudioPlayer(contentsOf: url)
+            let player = try AVAudioPlayer(contentsOf: url)
             if loop {
-                audioPlayer?.numberOfLoops = -1
+                player.numberOfLoops = -1
             }
-            audioPlayer?.play()
+            setVolume(for: volumeType, player: player)
+            player.play()
+            
+            switch volumeType {
+            case .main:
+                mainAudioPlayer = player
+            case .music:
+                musicAudioPlayer = player
+            case .effects:
+                effectsAudioPlayer = player
+            }
         } catch {
             print("Failed to play sound: \(error.localizedDescription)")
         }
     }
     
-    func stopSound() {
-        audioPlayer?.stop()
+    func stopSound(volumeType: VolumeType) {
+        switch volumeType {
+        case .main:
+            mainAudioPlayer?.stop()
+        case .music:
+            musicAudioPlayer?.stop()
+        case .effects:
+            effectsAudioPlayer?.stop()
+        }
     }
+    
+    private func setVolume(for volumeType: VolumeType, player: AVAudioPlayer) {
+        switch volumeType {
+        case .main:
+            player.volume = Float(mainVolume)
+        case .music:
+            player.volume = Float(musicVolume)
+        case .effects:
+            player.volume = Float(effectsVolume)
+        }
+    }
+    
+    func updateVolume(for volumeType: VolumeType) {
+        switch volumeType {
+        case .main:
+            musicAudioPlayer?.volume = Float(mainVolume)
+            effectsAudioPlayer?.volume = Float(effectsVolume)
+        case .music:
+            musicAudioPlayer?.volume = Float(musicVolume)
+        case .effects:
+            effectsAudioPlayer?.volume = Float(effectsVolume)
+        }
+    }
+    
+    
+    
 }

@@ -21,7 +21,9 @@ struct ContentView: View {
     var Difficulty: Difficulty
     @ObservedObject var TicTac = TicTacModel()
     
-    @Environment(\.colorScheme) var colorScheme
+//    @Environment(\.colorScheme) var colorScheme
+    @EnvironmentObject var globalSettings: GlobalSettings
+
     
     private var opponentText: String {
             gameMode == .singlePlayer ? "Computer" : "Player 2"
@@ -37,11 +39,15 @@ struct ContentView: View {
     var body: some View {
         
         ZStack {
+            
+            globalSettings.reverseWhite().ignoresSafeArea()
+            
             VStack {
                 
                 HStack(spacing: 0) {
                     Text("TIK-TAK-")
                         .font(.system(size: 45, weight: .heavy))
+                        .foregroundColor(globalSettings.reverseBlack())
                     Text("TOE")
                         .font(.system(size: 45, weight: .heavy))
                         .overlay(
@@ -52,14 +58,15 @@ struct ContentView: View {
                                     path.move(to: CGPoint(x: 0, y: height))
                                     path.addLine(to: CGPoint(x: width, y: 0))
                                 }
-                                .stroke(reverseBlack, lineWidth: 10)
+                                .stroke(globalSettings.reverseBlack(), lineWidth: 10)
                             }
                         )
+                        .foregroundColor(globalSettings.reverseBlack())
                 }
                 
                 Text(gameModeText)
                     .font(.system(size: 20, weight: .heavy))
-                    .foregroundColor(reverseBlack)
+                    .foregroundColor(globalSettings.reverseBlack())
                     .offset(x: 140, y: -25)
                     .rotationEffect(Angle(degrees: 10))
                 
@@ -68,14 +75,16 @@ struct ContentView: View {
                     HStack{
                         
                         Text("Player 1:").font(.system(size: 20, weight: .bold))
+                            .foregroundColor(globalSettings.reverseBlack())
                         Text("\(TicTac.playerXScore)").font(.system(size: 20, weight: .bold))
-                            .foregroundColor(TicTac.playerScoreColor(playerXScore: TicTac.playerXScore,playerOScore: TicTac.playerOScore, colorScheme:colorScheme))
+                            .foregroundColor(TicTac.playerScoreColor(playerXScore: TicTac.playerXScore,playerOScore: TicTac.playerOScore, darkmode:globalSettings.darkMode))
                     }
                     Spacer()
                     HStack{
                         Text("\(opponentText): ").font(.system(size: 20, weight: .bold))
+                            .foregroundColor(globalSettings.reverseBlack())
                         Text("\(TicTac.playerOScore)").font(.system(size: 20, weight: .bold))
-                            .foregroundColor(TicTac.playerScoreColor(playerXScore: TicTac.playerOScore,playerOScore: TicTac.playerXScore, colorScheme:colorScheme))
+                            .foregroundColor(TicTac.playerScoreColor(playerXScore: TicTac.playerOScore,playerOScore: TicTac.playerXScore, darkmode:globalSettings.darkMode))
                     }
                     
                     
@@ -94,11 +103,11 @@ struct ContentView: View {
                             Text(TicTac.buttonLabel(i:i))
                                 .frame(width: 100, height: 100)
                                 .background(tieBreaker(i:i))
-                                .foregroundColor(reverseBlack)
+                                .foregroundColor(globalSettings.reverseBlack())
                                 .font(.system(size: 45, weight: .heavy))
                                 .overlay(
                                     Rectangle()
-                                        .stroke(reverseBlack, lineWidth: 3)
+                                        .stroke(globalSettings.reverseBlack(), lineWidth: 3)
                                 )
                         })
                     }
@@ -113,8 +122,8 @@ struct ContentView: View {
                     }) {
                         Text("RESTART ↻")
                             .frame(width: 200, height: 50)
-                            .background(reverseWhite)
-                            .foregroundColor(reverseBlack)
+                            .background(globalSettings.reverseWhite())
+                            .foregroundColor(globalSettings.reverseBlack())
                             .font(.system(size: 20, weight: .heavy))
                             .clipShape(Capsule())
                     }
@@ -124,7 +133,7 @@ struct ContentView: View {
             .padding()
             .onAppear {
                 
-                SoundManager.shared.playSound(named: "NextPage")
+                SoundManager.shared.playSound(named: "NextPage", volumeType: .effects)
             }
 
         }
@@ -136,17 +145,17 @@ struct ContentView: View {
             }
         }
     }
-    private var reverseBlack: Color {
-            colorScheme == .dark ? Color.white : Color.black
-        }
-    
-    private var reverseWhite: Color {
-            colorScheme == .dark ? Color.black : Color.white
-        }
+//    private var reverseBlack: Color {
+//            globalSettings.darkMode ? Color.white : Color.black
+//        }
+//    
+//    private var reverseWhite: Color {
+//            globalSettings.darkMode ? Color.black : Color.white
+//        }
     
     private func tieBreaker(i: Int) -> Color {
         if TicTac.winner != .T {
-            return TicTac.winningCombination.contains(i) ? .green : reverseWhite
+            return TicTac.winningCombination.contains(i) ? .green : globalSettings.reverseWhite()
         }
         else {
             return .red
@@ -156,4 +165,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView(gameMode: .singlePlayer, Difficulty: .medium)
+        .environmentObject(GlobalSettings())
 }

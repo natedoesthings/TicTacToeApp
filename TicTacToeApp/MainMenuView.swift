@@ -2,17 +2,19 @@ import SwiftUI
 
 struct MainMenuView: View {
     @State private var animateButton = false
-    @Environment(\.colorScheme) var colorScheme
+//    @Environment(\.colorScheme) var colorScheme
+    @EnvironmentObject var globalSettings: GlobalSettings
     
     var body: some View {
         NavigationView {
             ZStack {
+                globalSettings.reverseWhite().ignoresSafeArea()
                 VStack {
                     ZStack {
                         HStack(spacing: 0) {
                             Text("TIK-TAK-")
                                 .font(.system(size: 45, weight: .heavy))
-                                .foregroundColor(reverseBlack)
+                                .foregroundColor(globalSettings.reverseBlack())
                             Text("TOE")
                                 .font(.system(size: 45, weight: .heavy))
                                 .overlay(
@@ -23,16 +25,16 @@ struct MainMenuView: View {
                                             path.move(to: CGPoint(x: 0, y: height))
                                             path.addLine(to: CGPoint(x: width, y: 0))
                                         }
-                                        .stroke(reverseBlack, lineWidth: 10)
+                                        .stroke(globalSettings.reverseBlack(), lineWidth: 10)
                                     }
                                 )
-                                .foregroundColor(reverseBlack)
+                                .foregroundColor(globalSettings.reverseBlack())
                         }
                         .padding(.bottom, 10)
                         
                         Text("AI?")
                             .font(.system(size: 30, weight: .heavy))
-                            .foregroundColor(reverseBlack)
+                            .foregroundColor(globalSettings.reverseBlack())
                             .offset(x: 150, y: 15)
                             .rotationEffect(Angle(degrees: 10)) // Adjust position as needed
                     }
@@ -41,8 +43,8 @@ struct MainMenuView: View {
                     NavigationLink(destination: ContentView(gameMode: .twoPlayer, Difficulty: .easy)) {
                         Text("PLAY vs. FRIEND")
                             .frame(width: animateButton ? 220 : 200, height: animateButton ? 55 : 50)
-                            .background(reverseBlack)
-                            .foregroundColor(reverseWhite)
+                            .background(globalSettings.reverseBlack())
+                            .foregroundColor(globalSettings.reverseWhite())
                             .font(.system(size: 20, weight: .heavy))
                             .clipShape(Capsule())
                     }
@@ -51,8 +53,8 @@ struct MainMenuView: View {
                     NavigationLink(destination: GameModeSelection()) {
                         Text("PLAY vs. BOT")
                             .frame(width: animateButton ? 220 : 200, height: animateButton ? 55 : 50)
-                            .background(reverseBlack)
-                            .foregroundColor(reverseWhite)
+                            .background(globalSettings.reverseBlack())
+                            .foregroundColor(globalSettings.reverseWhite())
                             .font(.system(size: 20, weight: .heavy))
                             .clipShape(Capsule())
                     }
@@ -62,25 +64,57 @@ struct MainMenuView: View {
                     withAnimation(Animation.easeInOut(duration: 1).repeatForever(autoreverses: true)) {
                         animateButton = true
                     }
-                    SoundManager.shared.playSound(named: "MainMenuTrack", loop: true)
+                    SoundManager.shared.playSound(named: "MainMenuTrack", loop: true, volumeType: .music)
                 }
-                .onDisappear {
-                    SoundManager.shared.stopSound()
+//                .onDisappear {
+//                    SoundManager.shared.stopSound(volumeType: .music)
+//                }
+                
+                // Settings button in the bottom left corner
+                VStack {
+                    Spacer()
+                    HStack {
+                        NavigationLink(destination: SettingsView()) {
+                            Image("settings")
+                                .resizable()
+                                .frame(width: 40, height: 40)
+                                .foregroundColor(globalSettings.reverseBlack())
+                                .padding()
+                        }
+                        
+                        Button(action: {
+                            // Action to mute main menu music
+                        }) {
+                            Image("music")
+                                .resizable()
+                                .frame(width: 40, height: 40)
+                                .foregroundColor(globalSettings.reverseBlack())
+                                .padding()
+                        }
+                        
+                        Button(action: {
+                            // Action to mute main menu music
+                        }) {
+                            Image("sound-effects")
+                                .resizable()
+                                .frame(width: 40, height: 40)
+                                .foregroundColor(globalSettings.reverseBlack())
+                                .padding()
+                        }
+
+                    }
                 }
             }
         }
+
     }
     
-    private var reverseBlack: Color {
-            colorScheme == .dark ? Color.white : Color.black
-        }
-    
-    private var reverseWhite: Color {
-            colorScheme == .dark ? Color.black : Color.white
-        }
     
 }
 
 #Preview {
     MainMenuView()
+        .environmentObject(GlobalSettings())
+
+
 }

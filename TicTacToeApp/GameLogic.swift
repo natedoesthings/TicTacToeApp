@@ -45,7 +45,7 @@ class TicTacModel: ObservableObject {
 //        result[i] = activePlayer == .X ? "X" : "O"
         
         
-        SoundManager.shared.playSound(named: "MoveSound")
+        SoundManager.shared.playSound(named: "MoveSound", volumeType: .effects)
         
         if let winCombination = getWinCombination() {
             winner = activePlayer
@@ -56,7 +56,7 @@ class TicTacModel: ObservableObject {
                 playerOScore += 1
             }
             
-            SoundManager.shared.playSound(named: "WinningSound")
+            SoundManager.shared.playSound(named: "WinningSound", volumeType: .effects)
         } else if counter < 8{
             activePlayer = (activePlayer == .X) ? .O : .X
             
@@ -82,7 +82,7 @@ class TicTacModel: ObservableObject {
             // Set winner to Tie
             winner = .T            
             // Play loosing sound
-            SoundManager.shared.playSound(named: "LoosingSound")
+            SoundManager.shared.playSound(named: "LoosingSound", volumeType: .effects)
             
    
         }
@@ -92,13 +92,13 @@ class TicTacModel: ObservableObject {
 
     
     
-    func playerScoreColor(playerXScore: Int, playerOScore: Int, colorScheme: ColorScheme) -> Color {
+    func playerScoreColor(playerXScore: Int, playerOScore: Int, darkmode: Bool) -> Color {
         if playerXScore > playerOScore {
                 return .green
         } else if playerXScore < playerOScore {
                 return .red
             } else {
-                return colorScheme == .dark ? .white : .black
+                return darkmode ? .white : .black
             }
         }
     
