@@ -77,7 +77,7 @@ struct MainMenuView: View {
                     Spacer()
                     HStack {
                         NavigationLink(destination: SettingsView()) {
-                            Image("settings")
+                            Image(globalSettings.darkMode ? "white_settings" : "settings")
                                 .resizable()
                                 .frame(width: 40, height: 40)
                                 .foregroundColor(globalSettings.reverseBlack())
@@ -88,7 +88,7 @@ struct MainMenuView: View {
                         Button(action: {
                             globalSettings.darkMode = !globalSettings.darkMode
                         }) {
-                            Image("sound-effects")
+                            Image(globalSettings.darkMode ? "white_mode_switch" : "mode_switch")
                                 .resizable()
                                 .frame(width: 40, height: 40)
                                 .foregroundColor(globalSettings.reverseBlack())
@@ -114,15 +114,11 @@ struct MainMenuView: View {
                             
                             globalSettings.soundManager.updateVolume(for: .main)
                         }) {
-                            Image(globalSettings.darkMode ? globalSettings.effectsMute ? "music" : "music" : globalSettings.effectsMute ? "black_effects_off" : "music")
+                            Image(globalSettings.darkMode ? globalSettings.mainMute ? "white_sound_off" : "white_sound_on" : globalSettings.mainMute ? "black_sound_off" : "black_sound_on")
                                 .resizable()
                                 .frame(width: 40, height: 40)
                                 .foregroundColor(globalSettings.reverseBlack())
                                 .padding()
-                                .overlay(
-                                    SlashView(visible: globalSettings.mainMute)
-                                        .animation(.easeInOut(duration: 0.3), value: globalSettings.mainMute)
-                                )
                             
                         }
 

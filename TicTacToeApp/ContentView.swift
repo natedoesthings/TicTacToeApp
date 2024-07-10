@@ -93,26 +93,25 @@ struct ContentView: View {
                 .padding()
                 
                 let col = Array(repeating: GridItem(.flexible(), spacing: 0), count: 3)
-                
-                LazyVGrid(columns: col, content: {
+
+                LazyVGrid(columns: col, spacing: globalSettings.connected ? 0 : 10, content: {
                     ForEach(0..<9) { i in
                         Button(action: {
                             TicTac.buttonTap(i: i, gameMode: gameMode, Difficulty: Difficulty)
-                            
                         }, label: {
-                            Text(TicTac.buttonLabel(i:i, playerX:globalSettings.playerXSymbol, playerO:globalSettings.playerOSymbol, validX:globalSettings.validateX(), validO:globalSettings.validateO()))
-                                .frame(width: 100, height: 100)
+                            Text(TicTac.buttonLabel(i:i, playerX:globalSettings.playerXSymbol, playerO:globalSettings.playerOSymbol))
+                                .frame(width: globalSettings.connected ? 120 : 100, height: globalSettings.connected ? 120 : 100)
                                 .background(tieBreaker(i:i))
                                 .foregroundColor(globalSettings.reverseBlack())
-                                .font(.system(size: 45, weight: .heavy))
+                                .font(.system(size: globalSettings.symbolSize, weight: .heavy))
                                 .overlay(
                                     Rectangle()
                                         .stroke(globalSettings.reverseBlack(), lineWidth: 3)
                                 )
-                        })
+                        }).buttonStyle(NoEffectButtonStyle())
                     }
                 })
-                .padding(.bottom)
+                .padding(.vertical)
                 if showRestartButton {
                     Button(action: {
                         withAnimation {
@@ -145,13 +144,6 @@ struct ContentView: View {
             }
         }
     }
-//    private var reverseBlack: Color {
-//            globalSettings.darkMode ? Color.white : Color.black
-//        }
-//    
-//    private var reverseWhite: Color {
-//            globalSettings.darkMode ? Color.black : Color.white
-//        }
     
     private func tieBreaker(i: Int) -> Color {
         if TicTac.winner != .T {
@@ -162,6 +154,16 @@ struct ContentView: View {
         }
     }
 }
+
+struct NoEffectButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+    }
+}
+
+
+
+
 
 #Preview {
     ContentView(gameMode: .singlePlayer, Difficulty: .medium)

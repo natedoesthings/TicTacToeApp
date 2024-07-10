@@ -29,15 +29,9 @@ class TicTacModel: ObservableObject {
     @Published var counter: Int = 0
     
     
-    func buttonLabel(i: Int, playerX: String, playerO: String, validX: Bool, validO: Bool) -> String {
+    func buttonLabel(i: Int, playerX: String, playerO: String) -> String {
         if let player = board[i] {
-            if player == .X {
-                return validX ? playerX : "X"
-            }
-            
-            if player == .O {
-                return validO ? playerO : "O"
-            }
+            return player == .X ? playerX : playerO
         }
         return ""
     }
@@ -219,3 +213,6 @@ class TicTacModel: ObservableObject {
    
  
 }
+
+
+

@@ -68,7 +68,7 @@ struct SettingsView: View {
                                     
                                     globalSettings.soundManager.updateVolume(for: .main)
                                 }) {
-                                    Image("music")
+                                    Image(globalSettings.darkMode ? "white_sound_off" : "black_sound_off")
                                         .resizable()
                                         .frame(width: 20, height: 20)
                                 }
@@ -106,7 +106,7 @@ struct SettingsView: View {
                                     globalSettings.soundManager.updateVolume(for: .music)
                                     
                                 }) {
-                                    Image("music")
+                                    Image(globalSettings.darkMode ? "white_sound_off" : "black_sound_off")
                                         .resizable()
                                         .frame(width: 20, height: 20)
                                 }
@@ -143,7 +143,7 @@ struct SettingsView: View {
                                     
                                     globalSettings.soundManager.updateVolume(for: .effects)
                                 }) {
-                                    Image("music")
+                                    Image(globalSettings.darkMode ? "white_sound_off" : "black_sound_off")
                                         .resizable()
                                         .frame(width: 20, height: 20)
                                 }
@@ -170,7 +170,10 @@ struct SettingsView: View {
                                 TextField("Enter X symbol", text: $globalSettings.playerXSymbol)
                                     .textFieldStyle(RoundedBorderTextFieldStyle())
                                     .disabled(globalSettings.useDefaultX)
-                                    .accentColor(.black) // Cursor color
+                                    .accentColor(.black)
+                                    .onSubmit() {
+                                        globalSettings.validateX()
+                                    }// Cursor color
 
                                 
                                 Toggle(isOn: $globalSettings.useDefaultX) {
@@ -185,6 +188,9 @@ struct SettingsView: View {
                                     .textFieldStyle(RoundedBorderTextFieldStyle())
                                     .disabled(globalSettings.useDefaultO)
                                     .accentColor(.black)
+                                    .onSubmit() {
+                                        globalSettings.validateO()
+                                    }
                                 
                                 Toggle(isOn: $globalSettings.useDefaultO) {
                                     Text("Default?")
@@ -192,6 +198,22 @@ struct SettingsView: View {
                                 }
                                 
                                 
+                            }
+                            HStack() {
+                                Text("Symbol Size")
+
+                                    .foregroundColor(globalSettings.reverseBlack())
+                                
+                                Slider(value: $globalSettings.symbolSize, in: 10...60, step: 1)
+                                    .accentColor(globalSettings.reverseBlack())
+                                    .padding(.horizontal)
+                            }
+                            HStack() {
+                                
+                                Toggle(isOn: $globalSettings.connected) {
+                                    Text("Connected Grid?")
+                                        .foregroundColor(globalSettings.reverseBlack())
+                                }
                             }
                         }
                         .padding()
@@ -218,6 +240,16 @@ struct SettingsView: View {
                                         .foregroundColor(globalSettings.reverseBlack())
                                 }
                             }
+                            
+//                            HStack() {
+//                                Text("Color")
+//                                    .foregroundColor(globalSettings.reverseBlack())
+//                                
+//                                Slider(value: $globalSettings.colorShifter, in: 0...255, step: 1)
+//                                    .accentColor(globalSettings.reverseBlack())
+//                                    .padding(.horizontal)
+//                                    .disabled(globalSettings.mainMute)
+//                            }
                             
                         }
                         .padding()

@@ -12,6 +12,7 @@
 		FE5EC54C2C3CFC20006D4539 /* TicTacToeAI-HardBot.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = FE5EC54B2C3CFC20006D4539 /* TicTacToeAI-HardBot.mlmodel */; };
 		FEB215CB2C3D8B5E0038669E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB215CA2C3D8B5E0038669E /* SettingsView.swift */; };
 		FEB215CD2C3DD7D30038669E /* GlobalSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB215CC2C3DD7D30038669E /* GlobalSettings.swift */; };
+		FEB215D12C3EEC5E0038669E /* testView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB215D02C3EEC5E0038669E /* testView.swift */; };
 		FEE979402C38DB5D00BD81C9 /* TicTacToeAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE9793F2C38DB5D00BD81C9 /* TicTacToeAppApp.swift */; };
 		FEE979422C38DB5D00BD81C9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE979412C38DB5D00BD81C9 /* ContentView.swift */; };
 		FEE979442C38DB5F00BD81C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FEE979432C38DB5F00BD81C9 /* Assets.xcassets */; };
@@ -33,6 +34,7 @@
 		FE5EC54B2C3CFC20006D4539 /* TicTacToeAI-HardBot.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = "TicTacToeAI-HardBot.mlmodel"; path = "../../../../../var/folders/f6/9rfpzfhd22950sxr4581vrhc0000gn/T/com.apple.dt.CreateML.app/sharing/drag/6AB36287-0215-4164-9907-F9F621733D7C/TicTacToeAI-HardBot.mlmodel"; sourceTree = "<group>"; };
 		FEB215CA2C3D8B5E0038669E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		FEB215CC2C3DD7D30038669E /* GlobalSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSettings.swift; sourceTree = "<group>"; };
+		FEB215D02C3EEC5E0038669E /* testView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testView.swift; sourceTree = "<group>"; };
 		FEE9793C2C38DB5D00BD81C9 /* TicTacToeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TicTacToeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FEE9793F2C38DB5D00BD81C9 /* TicTacToeAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicTacToeAppApp.swift; sourceTree = "<group>"; };
 		FEE979412C38DB5D00BD81C9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 				FE5EC5272C3B9280006D4539 /* TicTacToeAI-MedBot.mlmodel */,
 				FEE979432C38DB5F00BD81C9 /* Assets.xcassets */,
 				FEE979452C38DB5F00BD81C9 /* Preview Content */,
+				FEB215D02C3EEC5E0038669E /* testView.swift */,
 			);
 			path = TicTacToeApp;
 			sourceTree = "<group>";
@@ -200,6 +203,7 @@
 				FEB215CB2C3D8B5E0038669E /* SettingsView.swift in Sources */,
 				FE5EC54C2C3CFC20006D4539 /* TicTacToeAI-HardBot.mlmodel in Sources */,
 				FE5EC5282C3B9280006D4539 /* TicTacToeAI-MedBot.mlmodel in Sources */,
+				FEB215D12C3EEC5E0038669E /* testView.swift in Sources */,
 				FEE979502C38F23400BD81C9 /* MainMenuView.swift in Sources */,
 				FEB215CD2C3DD7D30038669E /* GlobalSettings.swift in Sources */,
 				FEE979402C38DB5D00BD81C9 /* TicTacToeAppApp.swift in Sources */,
