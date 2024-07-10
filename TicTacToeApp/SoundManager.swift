@@ -1,6 +1,10 @@
 import AVFoundation
 import Combine
 
+class GlobalSound: ObservableObject {
+    @Published var soundManager: SoundManager = SoundManager.shared
+}
+
 enum VolumeType {
     case main
     case music
@@ -35,8 +39,7 @@ class SoundManager: ObservableObject {
         // Subscribe to changes in volume properties
         $mainVolume
             .sink { [weak self] _ in
-                self?.updateVolume(for: .effects)
-                self?.updateVolume(for: .music)
+                self?.updateAllVolumes()
             }
             .store(in: &cancellables)
         
@@ -96,24 +99,26 @@ class SoundManager: ObservableObject {
         case .main:
             player.volume = Float(mainVolume)
         case .music:
-            player.volume = Float(musicVolume)
+            player.volume = Float(musicVolume * mainVolume)
         case .effects:
-            player.volume = Float(effectsVolume)
+            player.volume = Float(effectsVolume * mainVolume)
         }
     }
     
     func updateVolume(for volumeType: VolumeType) {
         switch volumeType {
         case .main:
-            musicAudioPlayer?.volume = Float(mainVolume)
-            effectsAudioPlayer?.volume = Float(effectsVolume)
+            mainAudioPlayer?.volume = Float(mainVolume)
+            updateAllVolumes()
         case .music:
-            musicAudioPlayer?.volume = Float(musicVolume)
+            musicAudioPlayer?.volume = Float(musicVolume * mainVolume)
         case .effects:
-            effectsAudioPlayer?.volume = Float(effectsVolume)
+            effectsAudioPlayer?.volume = Float(effectsVolume * mainVolume)
         }
     }
     
-    
-    
+    private func updateAllVolumes() {
+        musicAudioPlayer?.volume = Float(musicVolume * mainVolume)
+        effectsAudioPlayer?.volume = Float(effectsVolume * mainVolume)
+    }
 }

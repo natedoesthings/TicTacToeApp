@@ -13,7 +13,7 @@ struct SettingsView: View {
     @State private var animateButton = false
     @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var globalSettings: GlobalSettings
-    @ObservedObject var soundManager = SoundManager.shared
+//    @EnvironmentObject var globalSound: GlobalSound
 
 
     var body: some View {
@@ -45,7 +45,7 @@ struct SettingsView: View {
                                     .padding(.bottom, 5)
                                     .foregroundColor(globalSettings.reverseBlack())
                                 
-                                Slider(value: $soundManager.mainVolume, in: 0...1, step: 0.01)
+                                Slider(value: $globalSettings.soundManager.mainVolume, in: 0...1, step: 0.01)
                                     .accentColor(globalSettings.reverseBlack())
                                     .padding(.horizontal)
                                     .disabled(globalSettings.mainMute)
@@ -57,16 +57,16 @@ struct SettingsView: View {
                                     
                                     if globalSettings.mainMute {
                                         // save the volume before mute
-                                        globalSettings.mainVolume = soundManager.mainVolume
+                                        globalSettings.mainVolume = globalSettings.soundManager.mainVolume
                                         // mute
-                                        soundManager.mainVolume = 0
+                                        globalSettings.soundManager.mainVolume = 0
                                     }
                                     else {
-                                        soundManager.mainVolume = globalSettings.mainVolume
+                                        globalSettings.soundManager.mainVolume = globalSettings.mainVolume
                                         
                                     }
                                     
-                                    soundManager.updateVolume(for: .main)
+                                    globalSettings.soundManager.updateVolume(for: .main)
                                 }) {
                                     Image("music")
                                         .resizable()
@@ -82,7 +82,7 @@ struct SettingsView: View {
                                     .padding(.bottom, 5)
                                     .foregroundColor(globalSettings.reverseBlack())
                                 
-                                Slider(value: $soundManager.musicVolume, in: 0...1, step: 0.01)
+                                Slider(value: $globalSettings.soundManager.musicVolume, in: 0...1, step: 0.01)
                                     .accentColor(globalSettings.reverseBlack())
                                     .padding(.horizontal)
                                     .disabled(globalSettings.musicMute)
@@ -94,16 +94,16 @@ struct SettingsView: View {
                                     
                                     if globalSettings.musicMute {
                                         // save the volume before mute
-                                        globalSettings.musicVolume = soundManager.musicVolume
+                                        globalSettings.musicVolume = globalSettings.soundManager.musicVolume
                                         // mute
-                                        soundManager.musicVolume = 0
+                                        globalSettings.soundManager.musicVolume = 0
                                     }
                                     else {
-                                        soundManager.musicVolume = globalSettings.musicVolume
+                                        globalSettings.soundManager.musicVolume = globalSettings.musicVolume
                                         
                                     }
                                     
-                                    soundManager.updateVolume(for: .music)
+                                    globalSettings.soundManager.updateVolume(for: .music)
                                     
                                 }) {
                                     Image("music")
@@ -121,7 +121,7 @@ struct SettingsView: View {
                                     .padding(.bottom, 5)
                                     .foregroundColor(globalSettings.reverseBlack())
                                 
-                                Slider(value: $soundManager.effectsVolume, in: 0...1, step: 0.01)
+                                Slider(value: $globalSettings.soundManager.effectsVolume, in: 0...1, step: 0.01)
                                     .accentColor(globalSettings.reverseBlack())
                                     .padding(.horizontal)
                                     .disabled(globalSettings.effectsMute)
@@ -132,16 +132,16 @@ struct SettingsView: View {
                                     
                                     if globalSettings.effectsMute {
                                         // save the volume before mute
-                                        globalSettings.effectsVolume = soundManager.effectsVolume
+                                        globalSettings.effectsVolume = globalSettings.soundManager.effectsVolume
                                         // mute
-                                        soundManager.effectsVolume = 0
+                                        globalSettings.soundManager.effectsVolume = 0
                                     }
                                     else {
-                                        soundManager.effectsVolume = globalSettings.effectsVolume
+                                        globalSettings.soundManager.effectsVolume = globalSettings.effectsVolume
                                         
                                     }
                                     
-                                    soundManager.updateVolume(for: .effects)
+                                    globalSettings.soundManager.updateVolume(for: .effects)
                                 }) {
                                     Image("music")
                                         .resizable()
@@ -258,5 +258,6 @@ struct SettingsView: View {
 #Preview {
     SettingsView()
         .environmentObject(GlobalSettings())
+//        .environmentObject(GlobalSound())
 }
 

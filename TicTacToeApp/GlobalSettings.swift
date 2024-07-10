@@ -22,12 +22,18 @@ class GlobalSettings: ObservableObject {
     // Game Design Section
     @Published var playerXSymbol: String = ""
     @Published var playerOSymbol: String = ""
+//    @Published var validSymbols: Bool = false
+
+    
     
     @Published var useDefaultX: Bool = false
     @Published var useDefaultO: Bool = false
     
     // Theme Section
     @Published var darkMode: Bool = false
+    
+    // Sound
+    @Published var soundManager:SoundManager = SoundManager.shared
     
     
     func reverseBlack() -> Color {
@@ -38,9 +44,19 @@ class GlobalSettings: ObservableObject {
         return darkMode ? Color.black : Color.white
     }
     
-//    func mute(volumeType: VolumeType) {
-//        
-//    }
+    func playTheme() {
+        if mainMute == false {
+            soundManager.playSound(named: "MainMenuTrack", loop: true, volumeType: .music)
+        }
+    }
+    
+    func validateX() -> Bool {
+        return useDefaultX ? false : playerXSymbol.count == 1 && playerXSymbol != playerOSymbol
+    }
+    
+    func validateO() -> Bool {
+        return useDefaultO ? false : playerOSymbol.count == 1 && playerXSymbol != playerOSymbol
+    }
     
     
 }

@@ -10,12 +10,18 @@ import SwiftUI
 @main
 struct TicTacToeAppApp: App {
     @StateObject private var globalSettings = GlobalSettings()
+    @StateObject private var globalSound = GlobalSound()
+    
+    init() {
+        globalSettings.playTheme()
+    }
 
     var body: some Scene {
+        
         WindowGroup {
             MainMenuView()
                 .environmentObject(globalSettings)
-                .applyBackgroundColor(globalSettings.darkMode ? .white : .black)
+                .environmentObject(globalSound)
         }
     }
 }

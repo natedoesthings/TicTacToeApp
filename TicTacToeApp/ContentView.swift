@@ -100,7 +100,7 @@ struct ContentView: View {
                             TicTac.buttonTap(i: i, gameMode: gameMode, Difficulty: Difficulty)
                             
                         }, label: {
-                            Text(TicTac.buttonLabel(i:i))
+                            Text(TicTac.buttonLabel(i:i, playerX:globalSettings.playerXSymbol, playerO:globalSettings.playerOSymbol, validX:globalSettings.validateX(), validO:globalSettings.validateO()))
                                 .frame(width: 100, height: 100)
                                 .background(tieBreaker(i:i))
                                 .foregroundColor(globalSettings.reverseBlack())

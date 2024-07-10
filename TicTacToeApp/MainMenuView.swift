@@ -4,6 +4,8 @@ struct MainMenuView: View {
     @State private var animateButton = false
 //    @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var globalSettings: GlobalSettings
+//    @EnvironmentObject var globalSound: GlobalSound
+
     
     var body: some View {
         NavigationView {
@@ -64,7 +66,7 @@ struct MainMenuView: View {
                     withAnimation(Animation.easeInOut(duration: 1).repeatForever(autoreverses: true)) {
                         animateButton = true
                     }
-                    SoundManager.shared.playSound(named: "MainMenuTrack", loop: true, volumeType: .music)
+
                 }
 //                .onDisappear {
 //                    SoundManager.shared.stopSound(volumeType: .music)
@@ -80,26 +82,48 @@ struct MainMenuView: View {
                                 .frame(width: 40, height: 40)
                                 .foregroundColor(globalSettings.reverseBlack())
                                 .padding()
+                                
                         }
                         
                         Button(action: {
-                            // Action to mute main menu music
-                        }) {
-                            Image("music")
-                                .resizable()
-                                .frame(width: 40, height: 40)
-                                .foregroundColor(globalSettings.reverseBlack())
-                                .padding()
-                        }
-                        
-                        Button(action: {
-                            // Action to mute main menu music
+                            globalSettings.darkMode = !globalSettings.darkMode
                         }) {
                             Image("sound-effects")
                                 .resizable()
                                 .frame(width: 40, height: 40)
                                 .foregroundColor(globalSettings.reverseBlack())
                                 .padding()
+                                
+                            
+                        }
+                        
+                        Button(action: {
+                            globalSettings.mainMute = !globalSettings.mainMute
+                            
+                            
+                            if globalSettings.mainMute {
+                                // save the volume before mute
+                                globalSettings.mainVolume = globalSettings.soundManager.mainVolume
+                                // mute
+                                globalSettings.soundManager.mainVolume = 0
+                            }
+                            else {
+                                globalSettings.soundManager.mainVolume = globalSettings.mainVolume
+                                
+                            }
+                            
+                            globalSettings.soundManager.updateVolume(for: .main)
+                        }) {
+                            Image(globalSettings.darkMode ? globalSettings.effectsMute ? "music" : "music" : globalSettings.effectsMute ? "black_effects_off" : "music")
+                                .resizable()
+                                .frame(width: 40, height: 40)
+                                .foregroundColor(globalSettings.reverseBlack())
+                                .padding()
+                                .overlay(
+                                    SlashView(visible: globalSettings.mainMute)
+                                        .animation(.easeInOut(duration: 0.3), value: globalSettings.mainMute)
+                                )
+                            
                         }
 
                     }
@@ -112,9 +136,27 @@ struct MainMenuView: View {
     
 }
 
+struct SlashView: View {
+    var visible: Bool
+    
+    var body: some View {
+        GeometryReader { geometry in
+            Path { path in
+                let width = geometry.size.width
+                let height = geometry.size.height
+                path.move(to: CGPoint(x: width, y: 0))
+                path.addLine(to: CGPoint(x: 0, y: height))
+            }
+            .stroke(Color.black, lineWidth: 2)
+            .opacity(visible ? 1 : 0)
+        }
+    }
+}
+
 #Preview {
     MainMenuView()
         .environmentObject(GlobalSettings())
+
 
 
 }
