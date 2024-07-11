@@ -6,11 +6,12 @@
 //
 
 import SwiftUI
+import UIKit
 
 @main
 struct TicTacToeAppApp: App {
-    @StateObject private var globalSettings = GlobalSettings()
-    @StateObject private var globalSound = GlobalSound()
+    @StateObject private var globalSettings: GlobalSettings = GlobalSettings.load()
+    let defaults = UserDefaults.standard
     
     init() {
         globalSettings.playTheme()
@@ -21,23 +22,15 @@ struct TicTacToeAppApp: App {
         WindowGroup {
             MainMenuView()
                 .environmentObject(globalSettings)
-                .environmentObject(globalSound)
+                .onReceive(globalSettings.objectWillChange, perform: { _ in
+                    globalSettings.save()
+                })
         }
     }
+    
+    
 }
 
 
-struct BackgroundColorModifier: ViewModifier {
-    var color: Color
 
-    func body(content: Content) -> some View {
-        content
-            .background(color.edgesIgnoringSafeArea(.all))
-    }
-}
 
-extension View {
-    func applyBackgroundColor(_ color: Color) -> some View {
-        self.modifier(BackgroundColorModifier(color: color))
-    }
-}

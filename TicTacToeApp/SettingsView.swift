@@ -179,6 +179,14 @@ struct SettingsView: View {
                                 Toggle(isOn: $globalSettings.useDefaultX) {
                                     Text("Default?")
                                         .foregroundColor(globalSettings.reverseBlack())
+                                        .onChange(of: globalSettings.useDefaultX) {
+                                            if globalSettings.useDefaultX {
+                                                globalSettings.playerXSymbol = "X"
+                                            }
+                                            else {
+                                                globalSettings.playerXSymbol = ""
+                                            }
+                                        }
                                 }
                                 
                                 
@@ -195,6 +203,15 @@ struct SettingsView: View {
                                 Toggle(isOn: $globalSettings.useDefaultO) {
                                     Text("Default?")
                                         .foregroundColor(globalSettings.reverseBlack())
+                                        .onChange(of: globalSettings.useDefaultO) {
+                                            if globalSettings.useDefaultO {
+                                                globalSettings.playerOSymbol = "O"
+                                            }
+                                            else {
+                                                globalSettings.playerOSymbol = ""
+                                            }
+                                        }
+                        
                                 }
                                 
                                 
@@ -290,6 +307,5 @@ struct SettingsView: View {
 #Preview {
     SettingsView()
         .environmentObject(GlobalSettings())
-//        .environmentObject(GlobalSound())
 }
 

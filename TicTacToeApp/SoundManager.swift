@@ -36,6 +36,15 @@ class SoundManager: ObservableObject {
     }
 
     private init() {
+        
+        // Set the audio session category to allow sound to play in silent mode
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch {
+            print("Failed to set audio session category: \(error.localizedDescription)")
+        }
+        
         // Subscribe to changes in volume properties
         $mainVolume
             .sink { [weak self] _ in
