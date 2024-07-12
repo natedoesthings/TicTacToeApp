@@ -1,9 +1,15 @@
-# TIK-TAK-AI? (Production Phase)
+# TIK-TAK-AI? (NEW FEATURES 7/11/2024!!!) 😱🕺🏾⚙️
 
 Play against your friends 🙋🏽‍♂️ or against the computer!! 🖥️
 
-<img src="https://github.com/natedoesthings/TicTacToeApp/assets/123054755/c0596bb5-6573-4719-91c2-38113b4ebbfd"  height="600">
-<img src="https://github.com/natedoesthings/TicTacToeApp/assets/123054755/5f70382d-3bcf-4d67-ad4f-bc9a020f90ce" height="600">
+## Updated Main Menu Shortcuts!!!
+<img src=https://github.com/user-attachments/assets/ba9afb44-0e4b-4510-b6e3-d7a93f6689d5 height=600>
+<img src=https://github.com/user-attachments/assets/b2680ac3-a4fc-47eb-a1da-b798786db266 height=600>
+
+### Buttons
+- Easily Access the all new Settings Page!
+- Switch between light and dark mode!
+- Have the option between in-game sound!!
 
 
 # Features!!!
