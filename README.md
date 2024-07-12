@@ -17,7 +17,7 @@ Play against your friends 🙋🏽‍♂️ or against the computer!! 🖥️
 
 <table>
   <tr>
-    <td><img src=https://github.com/user-attachments/assets/9de75389-09e9-41a2-9c72-44da48f01452 height=600></td>
+    <td><img src=https://github.com/user-attachments/assets/9de75389-09e9-41a2-9c72-44da48f01452 width="290" height="640"></td>
     <td>
       <h1>Custom Settings are now here!</h1>
       <ul>
@@ -45,7 +45,7 @@ Play against your friends 🙋🏽‍♂️ or against the computer!! 🖥️
 
 
   <tr>
-    <td><img src=https://github.com/user-attachments/assets/5cfe65ad-963e-4924-a6db-acd9fdb8a0a8 height=600></td>
+    <td><img src=https://github.com/user-attachments/assets/5cfe65ad-963e-4924-a6db-acd9fdb8a0a8 width="290" height="640"></td>
     <td>
       <h1>Custom Symbols!!</h1>
       <ul>
@@ -57,7 +57,7 @@ Play against your friends 🙋🏽‍♂️ or against the computer!! 🖥️
     </td>
   </tr>
   <tr>
-    <td><img src=https://github.com/user-attachments/assets/21b1e5e0-eb4e-4cf9-b23d-8b09bd8c9e71 height=600></td>
+    <td><img src=https://github.com/user-attachments/assets/21b1e5e0-eb4e-4cf9-b23d-8b09bd8c9e71 width="290" height="640"></td>
     <td>
       <h1>Grid Prefferences</h1>
       <ul>
