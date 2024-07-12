@@ -9,7 +9,7 @@ Play against your friends 🙋🏽‍♂️ or against the computer!! 🖥️
 ### Buttons
 - Easily Access the all new Settings Page!
 - Switch between light and dark mode!
-- Have the option between in-game sound!!
+- Have the option to toggle in-game sound!!
 
 
 
