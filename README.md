@@ -52,7 +52,7 @@ Play against your friends 🙋🏽‍♂️ or against the computer!! 🖥️
         <li>Change up the default 'X' and 'O'!</li>
     <li>Choose your own symbols or even your favorite emojis!</li>
     <li>Option to choose default symbols is available.</li>
-    <li>As long as custom symbols are of length 1 and are not the same, you are good to go!</li>
+    <li>As long as custom symbols are of length 1 and are not the same!</li>
       </ul>
     </td>
   </tr>
