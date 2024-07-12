@@ -23,7 +23,10 @@ Play against your friends 🙋🏽‍♂️ or against the computer!! 🖥️
       <ul>
     <li>Volume Control</li>
         <ul>
-          <li>dsdsd</li>
+          <li>Complex Audio Control</li>
+          <li>Use main to control both music and effects</li>
+          <li>or....</li>
+          <li>Individually control music and effects volume</li>
         </ul>
     <li>Game Design Options</li>
         <ul>
