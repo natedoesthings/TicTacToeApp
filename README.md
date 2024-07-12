@@ -18,7 +18,7 @@ Play against your friends 🙋🏽‍♂️ or against the computer!! 🖥️
 <table>
   <tr>
     <td><img src=https://github.com/user-attachments/assets/9de75389-09e9-41a2-9c72-44da48f01452 width="290" height="640"></td>
-    <td>
+    <td width="400">
       <h1>Custom Settings are now here!</h1>
       <ul>
     <li>Volume Control</li>
