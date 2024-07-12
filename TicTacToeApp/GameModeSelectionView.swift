@@ -13,6 +13,11 @@ struct GameModeSelection: View {
     @State private var animateButton = false
     @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var globalSettings: GlobalSettings
+    @State private var showRestartButtonEz: Bool = false
+    @State private var showRestartButtonMed: Bool = false
+    @State private var showRestartButtonHard: Bool = false
+
+    
 
     
     
@@ -21,7 +26,7 @@ struct GameModeSelection: View {
             ZStack {
                 globalSettings.reverseWhite().ignoresSafeArea()
                 VStack {
-                    NavigationLink(destination: ContentView(gameMode: .singlePlayer, Difficulty: .easy).navigationBarBackButtonHidden(true)) {
+                    NavigationLink(destination: ContentView(gameMode: .singlePlayer, Difficulty: .easy, showRestartButton: $showRestartButtonEz).navigationBarBackButtonHidden(true)) {
                         Text("EASY AI?!")
                             .frame(width: animateButton ? 220 : 200, height: animateButton ? 55 : 50)
                             .background(globalSettings.reverseBlack())
@@ -31,7 +36,7 @@ struct GameModeSelection: View {
                     }
                     .padding(.bottom, 20)
                     
-                    NavigationLink(destination: ContentView(gameMode: .singlePlayer, Difficulty: .medium).navigationBarBackButtonHidden(true)) {
+                    NavigationLink(destination: ContentView(gameMode: .singlePlayer, Difficulty: .medium,showRestartButton: $showRestartButtonMed).navigationBarBackButtonHidden(true)) {
                         Text("MEDIUM AI?!")
                             .frame(width: animateButton ? 220 : 200, height: animateButton ? 55 : 50)
                             .background(globalSettings.reverseBlack())
@@ -41,7 +46,7 @@ struct GameModeSelection: View {
                     }
                     .padding(.bottom, 20)
                     
-                    NavigationLink(destination: ContentView(gameMode: .singlePlayer, Difficulty: .hard).navigationBarBackButtonHidden(true)) {
+                    NavigationLink(destination: ContentView(gameMode: .singlePlayer, Difficulty: .hard,showRestartButton: $showRestartButtonHard).navigationBarBackButtonHidden(true)) {
                         Text("HARDCORE AI?!")
                             .frame(width: animateButton ? 220 : 200, height: animateButton ? 55 : 50)
                             .background(globalSettings.reverseBlack())
@@ -65,8 +70,8 @@ struct GameModeSelection: View {
     }
 }
 
-#Preview {
-    GameModeSelection()
-        .environmentObject(GlobalSettings())
-}
+//#Preview {
+//    GameModeSelection()
+//        .environmentObject(GlobalSettings())
+//}
 

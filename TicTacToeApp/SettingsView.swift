@@ -49,6 +49,11 @@ struct SettingsView: View {
                                     .accentColor(globalSettings.reverseBlack())
                                     .padding(.horizontal)
                                     .disabled(globalSettings.mainMute)
+                                    .onChange(of: globalSettings.soundManager.mainVolume) {
+                                        if globalSettings.soundManager.mainVolume != 0 {
+                                            globalSettings.mainVolume = globalSettings.soundManager.mainVolume
+                                        }
+                                    }
                                    
                                 
                                 Button(action: {
@@ -86,7 +91,11 @@ struct SettingsView: View {
                                     .accentColor(globalSettings.reverseBlack())
                                     .padding(.horizontal)
                                     .disabled(globalSettings.musicMute)
-                                
+                                    .onChange(of: globalSettings.soundManager.musicVolume) {
+                                        if globalSettings.soundManager.musicVolume != 0 {
+                                            globalSettings.musicVolume = globalSettings.soundManager.musicVolume
+                                        }
+                                    }
                                 
                                 Button(action: {
                                     globalSettings.musicMute = !globalSettings.musicMute
@@ -125,6 +134,11 @@ struct SettingsView: View {
                                     .accentColor(globalSettings.reverseBlack())
                                     .padding(.horizontal)
                                     .disabled(globalSettings.effectsMute)
+                                    .onChange(of: globalSettings.soundManager.effectsVolume) {
+                                        if globalSettings.soundManager.effectsVolume != 0 {
+                                            globalSettings.effectsVolume = globalSettings.soundManager.effectsVolume
+                                        }
+                                    }
                                 
                                 Button(action: {
                                     globalSettings.effectsMute = !globalSettings.effectsMute
@@ -168,9 +182,13 @@ struct SettingsView: View {
                         VStack {
                             HStack() {
                                 TextField("Enter X symbol", text: $globalSettings.playerXSymbol)
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                                    .textFieldStyle(CustomRoundedBorderTextFieldStyle(
+                                        textColor: globalSettings.reverseBlack(),
+                                        placeholderColor: .white,
+                                        backgroundColor: globalSettings.reverseWhite(),
+                                        borderColor: .gray
+                                    ))
                                     .disabled(globalSettings.useDefaultX)
-                                    .accentColor(.black)
                                     .onSubmit() {
                                         globalSettings.validateX()
                                     }// Cursor color
@@ -186,6 +204,7 @@ struct SettingsView: View {
                                             else {
                                                 globalSettings.playerXSymbol = ""
                                             }
+                                            
                                         }
                                 }
                                 
@@ -193,9 +212,13 @@ struct SettingsView: View {
                             }
                             HStack() {
                                 TextField("Enter O symbol", text: $globalSettings.playerOSymbol)
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                                    .textFieldStyle(CustomRoundedBorderTextFieldStyle(
+                                        textColor: globalSettings.reverseBlack(),
+                                        placeholderColor: .white,
+                                        backgroundColor: globalSettings.reverseWhite(),
+                                        borderColor: .gray
+                                    ))
                                     .disabled(globalSettings.useDefaultO)
-                                    .accentColor(.black)
                                     .onSubmit() {
                                         globalSettings.validateO()
                                     }
@@ -216,6 +239,7 @@ struct SettingsView: View {
                                 
                                 
                             }
+                           
                             HStack() {
                                 Text("Symbol Size")
 
@@ -256,6 +280,7 @@ struct SettingsView: View {
                                     Text("Dark Mode Toggle")
                                         .foregroundColor(globalSettings.reverseBlack())
                                 }
+
                             }
                             
 //                            HStack() {
@@ -300,9 +325,36 @@ struct SettingsView: View {
                 
             }
         }
+        .animation(.easeInOut(duration: 0.2), value: globalSettings.darkMode)
         
     }
 }
+
+
+
+struct CustomRoundedBorderTextFieldStyle: TextFieldStyle {
+    var textColor: Color
+    var placeholderColor: Color
+    var backgroundColor: Color = Color(.systemGray6)
+    var borderColor: Color = Color(.systemGray3)
+
+    func _body(configuration: TextField<Self._Label>) -> some View {
+        configuration
+            .padding(10)
+            .background(RoundedRectangle(cornerRadius: 5).fill(backgroundColor))
+            .foregroundColor(textColor)
+            .accentColor(textColor)
+            .overlay(
+                RoundedRectangle(cornerRadius: 5)
+                    .stroke(borderColor, lineWidth: 1)
+                    
+            )
+    }
+}
+
+
+
+
 
 #Preview {
     SettingsView()

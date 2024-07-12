@@ -16,13 +16,15 @@ enum Difficulty {
 
 
 
+
 struct ContentView: View {
     var gameMode: GameMode
     var Difficulty: Difficulty
     @ObservedObject var TicTac = TicTacModel()
-    
-//    @Environment(\.colorScheme) var colorScheme
+
     @EnvironmentObject var globalSettings: GlobalSettings
+    
+    @Binding var showRestartButton: Bool
 
     
     private var opponentText: String {
@@ -33,8 +35,11 @@ struct ContentView: View {
             gameMode == .singlePlayer ? "AI?" : "FRIEND?"
         }
     
-    @State private var showRestartButton = false
-    
+//    @State private var showRestartButton = false {
+//        didSet {
+//            globalSettings.showRestartButton
+//        }
+//    }
     
     var body: some View {
         
@@ -112,12 +117,13 @@ struct ContentView: View {
                     }
                 })
                 .padding(.vertical)
-                if showRestartButton {
+                if showRestartButton  {
                     Button(action: {
                         withAnimation {
-                            showRestartButton = false
+                            showRestartButton.toggle()
+                            TicTac.resetGame()
                         }
-                        TicTac.resetGame()
+                        
                     }) {
                         Text("RESTART ↻")
                             .frame(width: 200, height: 50)
@@ -137,9 +143,10 @@ struct ContentView: View {
 
         }
         .onChange(of: TicTac.winner) {
-            if TicTac.winner != nil && !TicTac.board.isEmpty {
+            if TicTac.winner != nil {
                 withAnimation(.easeOut(duration: 0.5)) {
-                    showRestartButton = true
+                    showRestartButton.toggle()
+//                    globalSettings.updateRestart()
                 }
             }
         }
@@ -164,8 +171,8 @@ struct NoEffectButtonStyle: ButtonStyle {
 
 
 
-
-#Preview {
-    ContentView(gameMode: .singlePlayer, Difficulty: .medium)
-        .environmentObject(GlobalSettings())
-}
+//
+//#Preview {
+//    ContentView(gameMode: .twoPlayer, Difficulty: .medium, showRestartButton: Binding<false>)
+//        .environmentObject(GlobalSettings())
+//}

@@ -11,8 +11,7 @@ import UIKit
 @main
 struct TicTacToeAppApp: App {
     @StateObject private var globalSettings: GlobalSettings = GlobalSettings.load()
-    let defaults = UserDefaults.standard
-    
+
     init() {
         globalSettings.playTheme()
     }

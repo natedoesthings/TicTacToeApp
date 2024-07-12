@@ -41,9 +41,7 @@ class TicTacModel: ObservableObject {
             return
         }
         
-        board[i] = activePlayer
-//        result[i] = activePlayer == .X ? "X" : "O"
-        
+        board[i] = activePlayer        
         
         SoundManager.shared.playSound(named: "MoveSound", volumeType: .effects)
         
@@ -108,6 +106,8 @@ class TicTacModel: ObservableObject {
         winner = nil
         counter = 0
         winningCombination = []
+        
+       
     }
     
     func getWinCombination() -> [Int]? {

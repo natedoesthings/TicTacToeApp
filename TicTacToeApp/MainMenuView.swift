@@ -2,9 +2,10 @@ import SwiftUI
 
 struct MainMenuView: View {
     @State private var animateButton = false
-//    @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var globalSettings: GlobalSettings
-//    @EnvironmentObject var globalSound: GlobalSound
+    @State private var showRestartButton: Bool = false
+    
+
 
     
     var body: some View {
@@ -42,13 +43,14 @@ struct MainMenuView: View {
                     }
                     .padding(.bottom, 50)
                     
-                    NavigationLink(destination: ContentView(gameMode: .twoPlayer, Difficulty: .easy)) {
+                    NavigationLink(destination: ContentView(gameMode: .twoPlayer, Difficulty: .easy, showRestartButton: $showRestartButton)) {
                         Text("PLAY vs. FRIEND")
                             .frame(width: animateButton ? 220 : 200, height: animateButton ? 55 : 50)
                             .background(globalSettings.reverseBlack())
                             .foregroundColor(globalSettings.reverseWhite())
                             .font(.system(size: 20, weight: .heavy))
                             .clipShape(Capsule())
+ 
                     }
                     .padding(.bottom, 20)
                     
@@ -59,6 +61,7 @@ struct MainMenuView: View {
                             .foregroundColor(globalSettings.reverseWhite())
                             .font(.system(size: 20, weight: .heavy))
                             .clipShape(Capsule())
+ 
                     }
                 }
                 .padding()
@@ -66,12 +69,8 @@ struct MainMenuView: View {
                     withAnimation(Animation.easeInOut(duration: 1).repeatForever(autoreverses: true)) {
                         animateButton = true
                     }
-
+                    
                 }
-//                .onDisappear {
-//                    SoundManager.shared.stopSound(volumeType: .music)
-//                }
-                
                 // Settings button in the bottom left corner
                 VStack {
                     Spacer()
@@ -80,7 +79,6 @@ struct MainMenuView: View {
                             Image(globalSettings.darkMode ? "white_settings" : "settings")
                                 .resizable()
                                 .frame(width: 40, height: 40)
-                                .foregroundColor(globalSettings.reverseBlack())
                                 .padding()
                                 
                         }
@@ -91,7 +89,6 @@ struct MainMenuView: View {
                             Image(globalSettings.darkMode ? "white_mode_switch" : "mode_switch")
                                 .resizable()
                                 .frame(width: 40, height: 40)
-                                .foregroundColor(globalSettings.reverseBlack())
                                 .padding()
                                 
                             
@@ -117,7 +114,6 @@ struct MainMenuView: View {
                             Image(globalSettings.darkMode ? globalSettings.mainMute ? "white_sound_off" : "white_sound_on" : globalSettings.mainMute ? "black_sound_off" : "black_sound_on")
                                 .resizable()
                                 .frame(width: 40, height: 40)
-                                .foregroundColor(globalSettings.reverseBlack())
                                 .padding()
                             
                         }
@@ -126,6 +122,7 @@ struct MainMenuView: View {
                 }
             }
         }
+       
 
     }
     

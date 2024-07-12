@@ -39,8 +39,9 @@ class GlobalSettings: ObservableObject, Codable {
     // Sound
     @Published var soundManager:SoundManager = SoundManager.shared
 
-    @Published var gameDone: Bool = false
-
+    @Published var showRestartButton: Bool = false
+    
+    
     enum CodingKeys: String, CodingKey {
             case mainVolume, musicVolume, effectsVolume
             case mainMute, musicMute, effectsMute
@@ -49,10 +50,14 @@ class GlobalSettings: ObservableObject, Codable {
             case connected
             case symbolSize
             case darkMode
-            case gameDone
+//            case gameDone
         }
     
     
+    func updateRestart() {
+        showRestartButton = !showRestartButton
+        print(showRestartButton)
+    }
     
     func reverseBlack() -> Color {
         return darkMode ? Color.white : Color.black
@@ -65,17 +70,42 @@ class GlobalSettings: ObservableObject, Codable {
     func playTheme() {
         if !mainMute {
             soundManager.mainVolume = mainVolume
-            soundManager.playSound(named: "MainMenuTrack", loop: true, volumeType: .music)
         }
         else {
             soundManager.mainVolume = 0
-            soundManager.playSound(named: "MainMenuTrack", loop: true, volumeType: .music)
         }
+        
+        soundManager.updateVolume(for: .main)
+        
+        
+        if !musicMute {
+            soundManager.musicVolume = musicVolume
+
+        }
+        else {
+            soundManager.musicVolume = 0
+        }
+        
+        soundManager.updateVolume(for: .music)
+        
+        if !effectsMute {
+            soundManager.effectsVolume = effectsVolume
+        }
+        else {
+            soundManager.effectsVolume = 0
+        }
+        
+        soundManager.updateVolume(for: .effects)
+        
+        soundManager.playSound(named: "MainMenuTrack", loop: true, volumeType: .music)
+
+        
+        
     }
     
     func validateX() {
-//        useDefaultX = !(playerXSymbol.count == 1 && playerXSymbol != playerOSymbol)
-        playerXSymbol = !useDefaultX && playerXSymbol.count == 1 && playerXSymbol != playerOSymbol ? playerXSymbol : "X"
+        useDefaultX = !(playerXSymbol.count == 1 && playerXSymbol != playerOSymbol)
+        playerXSymbol = useDefaultX ? "X" : playerXSymbol
         
     }
     
@@ -99,7 +129,7 @@ class GlobalSettings: ObservableObject, Codable {
         connected = try container.decode(Bool.self, forKey: .connected)
         symbolSize = try container.decode(Double.self, forKey: .symbolSize)
         darkMode = try container.decode(Bool.self, forKey: .darkMode)
-        gameDone = try container.decode(Bool.self, forKey: .gameDone)
+//        gameDone = try container.decode(Bool.self, forKey: .gameDone)
     }
 
     func encode(to encoder: Encoder) throws {
@@ -117,7 +147,7 @@ class GlobalSettings: ObservableObject, Codable {
         try container.encode(connected, forKey: .connected)
         try container.encode(symbolSize, forKey: .symbolSize)
         try container.encode(darkMode, forKey: .darkMode)
-        try container.encode(gameDone, forKey: .gameDone)
+//        try container.encode(gameDone, forKey: .gameDone)
     }
 
     init() {}
