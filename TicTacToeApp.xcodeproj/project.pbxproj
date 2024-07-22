@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		FE5EC5262C3B8BA4006D4539 /* GameModeSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE5EC5252C3B8BA4006D4539 /* GameModeSelectionView.swift */; };
-		FE5EC5282C3B9280006D4539 /* TicTacToeAI-MedBot.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = FE5EC5272C3B9280006D4539 /* TicTacToeAI-MedBot.mlmodel */; };
-		FE5EC54C2C3CFC20006D4539 /* TicTacToeAI-HardBot.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = FE5EC54B2C3CFC20006D4539 /* TicTacToeAI-HardBot.mlmodel */; };
+		FE9501B22C4EE1240026C1F5 /* TicTacToeAI-HardBot.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = FE9501B12C4EE1240026C1F5 /* TicTacToeAI-HardBot.mlmodel */; };
+		FE9501B42C4EE12F0026C1F5 /* TicTacToe-MedBot.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = FE9501B32C4EE12F0026C1F5 /* TicTacToe-MedBot.mlmodel */; };
 		FEB215CB2C3D8B5E0038669E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB215CA2C3D8B5E0038669E /* SettingsView.swift */; };
 		FEB215CD2C3DD7D30038669E /* GlobalSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB215CC2C3DD7D30038669E /* GlobalSettings.swift */; };
 		FEB215D12C3EEC5E0038669E /* testView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB215D02C3EEC5E0038669E /* testView.swift */; };
@@ -30,8 +30,8 @@
 
 /* Begin PBXFileReference section */
 		FE5EC5252C3B8BA4006D4539 /* GameModeSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModeSelectionView.swift; sourceTree = "<group>"; };
-		FE5EC5272C3B9280006D4539 /* TicTacToeAI-MedBot.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = "TicTacToeAI-MedBot.mlmodel"; path = "../../../../../var/folders/f6/9rfpzfhd22950sxr4581vrhc0000gn/T/com.apple.dt.CreateML.app/sharing/drag/35F91D66-6D59-47DE-AA72-A3C18363038C/TicTacToeAI-MedBot.mlmodel"; sourceTree = "<group>"; };
-		FE5EC54B2C3CFC20006D4539 /* TicTacToeAI-HardBot.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = "TicTacToeAI-HardBot.mlmodel"; path = "../../../../../var/folders/f6/9rfpzfhd22950sxr4581vrhc0000gn/T/com.apple.dt.CreateML.app/sharing/drag/6AB36287-0215-4164-9907-F9F621733D7C/TicTacToeAI-HardBot.mlmodel"; sourceTree = "<group>"; };
+		FE9501B12C4EE1240026C1F5 /* TicTacToeAI-HardBot.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = "TicTacToeAI-HardBot.mlmodel"; path = "../../../../../var/folders/f6/9rfpzfhd22950sxr4581vrhc0000gn/T/com.apple.dt.CreateML.app/sharing/drag/5B3552A2-7DE2-4196-9623-843D3761BADE/TicTacToeAI-HardBot.mlmodel"; sourceTree = "<group>"; };
+		FE9501B32C4EE12F0026C1F5 /* TicTacToe-MedBot.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = "TicTacToe-MedBot.mlmodel"; path = "../../../../../var/folders/f6/9rfpzfhd22950sxr4581vrhc0000gn/T/com.apple.dt.CreateML.app/sharing/drag/8927C7BB-C8E6-438E-9EF4-67BBBB33806C/TicTacToe-MedBot.mlmodel"; sourceTree = "<group>"; };
 		FEB215CA2C3D8B5E0038669E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		FEB215CC2C3DD7D30038669E /* GlobalSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSettings.swift; sourceTree = "<group>"; };
 		FEB215D02C3EEC5E0038669E /* testView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testView.swift; sourceTree = "<group>"; };
@@ -91,8 +91,8 @@
 				FEB215CC2C3DD7D30038669E /* GlobalSettings.swift */,
 				FEE9793F2C38DB5D00BD81C9 /* TicTacToeAppApp.swift */,
 				FEE979412C38DB5D00BD81C9 /* ContentView.swift */,
-				FE5EC54B2C3CFC20006D4539 /* TicTacToeAI-HardBot.mlmodel */,
-				FE5EC5272C3B9280006D4539 /* TicTacToeAI-MedBot.mlmodel */,
+				FE9501B32C4EE12F0026C1F5 /* TicTacToe-MedBot.mlmodel */,
+				FE9501B12C4EE1240026C1F5 /* TicTacToeAI-HardBot.mlmodel */,
 				FEE979432C38DB5F00BD81C9 /* Assets.xcassets */,
 				FEE979452C38DB5F00BD81C9 /* Preview Content */,
 				FEB215D02C3EEC5E0038669E /* testView.swift */,
@@ -195,14 +195,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE9501B42C4EE12F0026C1F5 /* TicTacToe-MedBot.mlmodel in Sources */,
 				FE5EC5262C3B8BA4006D4539 /* GameModeSelectionView.swift in Sources */,
 				FEE9794E2C38DDDD00BD81C9 /* GameLogic.swift in Sources */,
 				FEE9795A2C39A78100BD81C9 /* SoundManager.swift in Sources */,
 				FEE979522C38F8AA00BD81C9 /* FallingSymbolsView.swift in Sources */,
 				FEE979422C38DB5D00BD81C9 /* ContentView.swift in Sources */,
+				FE9501B22C4EE1240026C1F5 /* TicTacToeAI-HardBot.mlmodel in Sources */,
 				FEB215CB2C3D8B5E0038669E /* SettingsView.swift in Sources */,
-				FE5EC54C2C3CFC20006D4539 /* TicTacToeAI-HardBot.mlmodel in Sources */,
-				FE5EC5282C3B9280006D4539 /* TicTacToeAI-MedBot.mlmodel in Sources */,
 				FEB215D12C3EEC5E0038669E /* testView.swift in Sources */,
 				FEE979502C38F23400BD81C9 /* MainMenuView.swift in Sources */,
 				FEB215CD2C3DD7D30038669E /* GlobalSettings.swift in Sources */,

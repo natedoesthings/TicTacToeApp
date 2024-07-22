@@ -166,7 +166,7 @@ struct SettingsView: View {
                             
                         }
                         .padding()
-                        .background(globalSettings.darkMode ? Color(red: 33/255, green: 33/255, blue: 33/255) : Color.gray.opacity(0.1)) // Light grey background
+                        .background(globalSettings.darkMode ? Color(red: 33/255, green: 33/255, blue: 33/255) : globalSettings.accents.color) // Light grey background
                         .cornerRadius(10)
                         .padding(.horizontal)
                     }
@@ -258,7 +258,7 @@ struct SettingsView: View {
                             }
                         }
                         .padding()
-                        .background(globalSettings.darkMode ? Color(red: 33/255, green: 33/255, blue: 33/255) : Color.gray.opacity(0.1)) // Light grey background
+                        .background(globalSettings.darkMode ? Color(red: 33/255, green: 33/255, blue: 33/255) : globalSettings.accents.color) // Light grey background
                         .cornerRadius(10)
                         .padding(.horizontal)
                         
@@ -283,6 +283,30 @@ struct SettingsView: View {
 
                             }
                             
+                            
+                            HStack() {
+                                
+                                ColorPicker("Primary Color", selection: $globalSettings.primary.color,
+                                    supportsOpacity: false)
+                                    .foregroundColor(globalSettings.reverseBlack())
+                                    .onChange(of: globalSettings.primary.color) {
+                                        print(globalSettings.primary.color.isDark())
+                                    }
+                                
+
+                            }
+                            HStack() {
+                                ColorPicker("Secondary Color", selection: $globalSettings.secondary.color,  supportsOpacity: false)
+                                    .foregroundColor(globalSettings.reverseBlack())
+                            }
+                            
+                            HStack() {
+                                ColorPicker("Accents", selection: $globalSettings.accents.color,
+                                            supportsOpacity: false)
+                                    .foregroundColor(globalSettings.reverseBlack())
+                                    .disabled(globalSettings.darkMode)
+                            }
+                            
 //                            HStack() {
 //                                Text("Color")
 //                                    .foregroundColor(globalSettings.reverseBlack())
@@ -295,7 +319,7 @@ struct SettingsView: View {
                             
                         }
                         .padding()
-                        .background(globalSettings.darkMode ? Color(red: 33/255, green: 33/255, blue: 33/255) : Color.gray.opacity(0.1)) // Light grey background
+                        .background(globalSettings.darkMode ? Color(red: 33/255, green: 33/255, blue: 33/255) : globalSettings.accents.color) // Light grey background
                         .cornerRadius(10)
                         .padding(.horizontal)
                         
@@ -303,6 +327,19 @@ struct SettingsView: View {
                     }
                     .padding()
                     
+                    
+                    VStack {
+                        Button(action: {
+                            globalSettings.resetSettings()
+                        }, label: {
+                            Text("Restore Default Settings")
+                                .foregroundStyle(Color.red)
+                                .font(.system(size: 17, weight: .semibold))
+                                .clipShape(.rect(cornerRadius: 6))
+//                                .background(.blue)
+                        })
+                        .padding()
+                    }
                     
                     Spacer()
                     HStack {
@@ -313,21 +350,28 @@ struct SettingsView: View {
                     }
                     
                 }
-                .onAppear {
-                    
-                }
-                //                    .onChange(of: volume) {
-                //                        // Update the volume in your audio manager
-                //                        // AudioManager.shared.setVolume(newVolume)
-                //                    }
                 
                 
                 
             }
+            .padding(.top, 16)
         }
         .animation(.easeInOut(duration: 0.2), value: globalSettings.darkMode)
+        .onAppear {
+            setTransparentNavigationBar()
+        }
         
     }
+    func setTransparentNavigationBar() {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithTransparentBackground()
+            appearance.backgroundColor = .clear
+            appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+            appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+            
+            UINavigationBar.appearance().standardAppearance = appearance
+            UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        }
 }
 
 

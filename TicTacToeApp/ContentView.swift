@@ -82,14 +82,14 @@ struct ContentView: View {
                         Text("Player 1:").font(.system(size: 20, weight: .bold))
                             .foregroundColor(globalSettings.reverseBlack())
                         Text("\(TicTac.playerXScore)").font(.system(size: 20, weight: .bold))
-                            .foregroundColor(TicTac.playerScoreColor(playerXScore: TicTac.playerXScore,playerOScore: TicTac.playerOScore, darkmode:globalSettings.darkMode))
+                            .foregroundColor(playerScoreColor(x: TicTac.playerXScore, o: TicTac.playerOScore))
                     }
                     Spacer()
                     HStack{
                         Text("\(opponentText): ").font(.system(size: 20, weight: .bold))
                             .foregroundColor(globalSettings.reverseBlack())
                         Text("\(TicTac.playerOScore)").font(.system(size: 20, weight: .bold))
-                            .foregroundColor(TicTac.playerScoreColor(playerXScore: TicTac.playerOScore,playerOScore: TicTac.playerXScore, darkmode:globalSettings.darkMode))
+                            .foregroundColor(playerScoreColor(x: TicTac.playerOScore, o: TicTac.playerXScore))
                     }
                     
                     
@@ -160,6 +160,16 @@ struct ContentView: View {
             return .red
         }
     }
+    
+    private func playerScoreColor(x: Int, o: Int) -> Color {
+        if x > o {
+                return .green
+        } else if x < o {
+                return .red
+            } else {
+                return globalSettings.darkMode ? globalSettings.reverseWhite() : globalSettings.reverseBlack()
+            }
+        }
 }
 
 struct NoEffectButtonStyle: ButtonStyle {

@@ -76,17 +76,18 @@ struct MainMenuView: View {
                     Spacer()
                     HStack {
                         NavigationLink(destination: SettingsView()) {
-                            Image(globalSettings.darkMode ? "white_settings" : "settings")
+                            Image(globalSettings.darkMode || !globalSettings.secondary.color.isDark() ? "white_settings" : "settings")
                                 .resizable()
                                 .frame(width: 40, height: 40)
                                 .padding()
                                 
                         }
                         
+                        
                         Button(action: {
                             globalSettings.darkMode = !globalSettings.darkMode
                         }) {
-                            Image(globalSettings.darkMode ? "white_mode_switch" : "mode_switch")
+                            Image(globalSettings.darkMode || !globalSettings.secondary.color.isDark()  ? "white_mode_switch" : "mode_switch")
                                 .resizable()
                                 .frame(width: 40, height: 40)
                                 .padding()
@@ -111,7 +112,7 @@ struct MainMenuView: View {
                             
                             globalSettings.soundManager.updateVolume(for: .main)
                         }) {
-                            Image(globalSettings.darkMode ? globalSettings.mainMute ? "white_sound_off" : "white_sound_on" : globalSettings.mainMute ? "black_sound_off" : "black_sound_on")
+                            Image(globalSettings.darkMode || !globalSettings.secondary.color.isDark() ? globalSettings.mainMute ? "white_sound_off" : "white_sound_on" : globalSettings.mainMute ? "black_sound_off" : "black_sound_on")
                                 .resizable()
                                 .frame(width: 40, height: 40)
                                 .padding()
