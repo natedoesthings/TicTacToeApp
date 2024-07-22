@@ -144,9 +144,9 @@ class TicTacModel: ObservableObject {
     
     func mediumBotMove(){
         // Load the model
-        let model = try! TicTacToeAI_MedBot(configuration: MLModelConfiguration())
+        let model = try! TicTacToe_MedBot(configuration: MLModelConfiguration())
         
-        let input = TicTacToeAI_MedBotInput(state_1: board[0]?.stringValue ?? "", state_2: board[1]?.stringValue ?? "", state_3: board[2]?.stringValue ?? "", state_4: board[3]?.stringValue ?? "", state_5: board[4]?.stringValue ?? "", state_6: board[5]?.stringValue ?? "", state_7: board[6]?.stringValue ?? "", state_8: board[7]?.stringValue ?? "", state_9: board[8]?.stringValue ?? "")
+        let input = TicTacToe_MedBotInput(state_1: board[0]?.stringValue ?? "", state_2: board[1]?.stringValue ?? "", state_3: board[2]?.stringValue ?? "", state_4: board[3]?.stringValue ?? "", state_5: board[4]?.stringValue ?? "", state_6: board[5]?.stringValue ?? "", state_7: board[6]?.stringValue ?? "", state_8: board[7]?.stringValue ?? "", state_9: board[8]?.stringValue ?? "")
             
         
         // Make prediction

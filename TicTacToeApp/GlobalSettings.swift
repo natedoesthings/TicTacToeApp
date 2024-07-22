@@ -34,7 +34,7 @@ class GlobalSettings: ObservableObject, Codable {
     @Published var darkMode: Bool = false
     @Published var primary: CodableColor = CodableColor(color: Color(.sRGB, red: 1, green: 1, blue: 1))
     @Published var secondary: CodableColor = CodableColor(color: Color(.sRGB, red: 0, green: 0, blue: 0))
-    @Published var accents: CodableColor = CodableColor(color: Color(red: 128/255, green: 128/255, blue: 128/255, opacity: 0.1))
+    @Published var accents: CodableColor = CodableColor(color: Color(red: 245/255, green: 245/255, blue: 245/255))
 
 
     // Sound
@@ -133,7 +133,7 @@ class GlobalSettings: ObservableObject, Codable {
         darkMode = false
         primary = CodableColor(color: Color(.sRGB, red: 1, green: 1, blue: 1))
         secondary = CodableColor(color: Color(.sRGB, red: 0, green: 0, blue: 0))
-        accents = CodableColor(color: Color(red: 128/255, green: 128/255, blue: 128/255, opacity: 0.1))
+        accents = CodableColor(color: Color(.sRGB, red: 245/255, green: 245/255, blue: 245/255))
 
 
         // Sound
