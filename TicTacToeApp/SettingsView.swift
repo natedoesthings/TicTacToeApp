@@ -13,6 +13,8 @@ struct SettingsView: View {
     @State private var animateButton = false
     @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject var globalSettings: GlobalSettings
+    @State private var showAlert = false
+
 //    @EnvironmentObject var globalSound: GlobalSound
 
 
@@ -73,7 +75,7 @@ struct SettingsView: View {
                                     
                                     globalSettings.soundManager.updateVolume(for: .main)
                                 }) {
-                                    Image(globalSettings.darkMode ? "white_sound_off" : "black_sound_off")
+                                    Image(globalSettings.darkMode || !globalSettings.secondary.color.isDark() ? globalSettings.mainMute ? "white_sound_off" : "white_sound_on" : globalSettings.mainMute ? "black_sound_off" : "black_sound_on")
                                         .resizable()
                                         .frame(width: 20, height: 20)
                                 }
@@ -115,7 +117,7 @@ struct SettingsView: View {
                                     globalSettings.soundManager.updateVolume(for: .music)
                                     
                                 }) {
-                                    Image(globalSettings.darkMode ? "white_sound_off" : "black_sound_off")
+                                    Image(globalSettings.darkMode || !globalSettings.secondary.color.isDark() ? globalSettings.musicMute ? "white_sound_off" : "white_sound_on" : globalSettings.musicMute ? "black_sound_off" : "black_sound_on")
                                         .resizable()
                                         .frame(width: 20, height: 20)
                                 }
@@ -157,7 +159,7 @@ struct SettingsView: View {
                                     
                                     globalSettings.soundManager.updateVolume(for: .effects)
                                 }) {
-                                    Image(globalSettings.darkMode ? "white_sound_off" : "black_sound_off")
+                                    Image(globalSettings.darkMode || !globalSettings.secondary.color.isDark() ? globalSettings.effectsMute ? "white_sound_off" : "white_sound_on" : globalSettings.effectsMute ? "black_sound_off" : "black_sound_on")
                                         .resizable()
                                         .frame(width: 20, height: 20)
                                 }
@@ -290,7 +292,7 @@ struct SettingsView: View {
                                     supportsOpacity: false)
                                     .foregroundColor(globalSettings.reverseBlack())
                                     .onChange(of: globalSettings.primary.color) {
-                                        print(globalSettings.primary.color.isDark())
+                                    print(globalSettings.primary.color.isDark())
                                     }
                                 
 
@@ -330,7 +332,9 @@ struct SettingsView: View {
                     
                     VStack {
                         Button(action: {
-                            globalSettings.resetSettings()
+                            
+                            showAlert = true
+//                            globalSettings.resetSettings()
                         }, label: {
                             Text("Restore Default Settings")
                                 .foregroundStyle(Color.red)
@@ -339,6 +343,14 @@ struct SettingsView: View {
 //                                .background(.blue)
                         })
                         .padding()
+                    }
+                    .alert(isPresented: $showAlert) {
+                        Alert(title: Text("Restore Default Settings"),
+                              message: Text("Are you sure you want to restore default settings?"),
+                              primaryButton: .destructive(Text("Confirm")) {
+                                globalSettings.resetSettings()
+                              },
+                              secondaryButton: .cancel())
                     }
                     
                     Spacer()
@@ -393,6 +405,44 @@ struct CustomRoundedBorderTextFieldStyle: TextFieldStyle {
                     .stroke(borderColor, lineWidth: 1)
                     
             )
+    }
+}
+
+struct AlertController: UIViewControllerRepresentable {
+    var title: String
+    var message: String
+    var confirmAction: () -> Void
+
+    class Coordinator: NSObject {
+        var parent: AlertController
+
+        init(parent: AlertController) {
+            self.parent = parent
+        }
+
+        @objc func confirmButtonTapped() {
+            parent.confirmAction()
+        }
+    }
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(parent: self)
+    }
+
+    func makeUIViewController(context: Context) -> UIViewController {
+        return UIViewController()
+    }
+
+    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { _ in
+            context.coordinator.confirmButtonTapped()
+        }))
+
+        if uiViewController.presentedViewController == nil {
+            uiViewController.present(alert, animated: true)
+        }
     }
 }
 
